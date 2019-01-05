@@ -9,10 +9,12 @@ RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" \
 
 RUN apt-get update \
   && apt-get upgrade -y \
-  && apt-get install -y mysql-server mysql-client git zip unzip zlib1g-dev --no-install-recommends \
+  && apt-get install -y mysql-server mysql-client git zip unzip zlib1g-dev python-setuptools python-pip --no-install-recommends \
   && docker-php-ext-install pdo pdo_mysql zip \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 RUN service mysql start \
   && mysql -u root -e "use mysql; update user set plugin='' where User='root'; flush privileges;"
+
+RUN pip install awscli
