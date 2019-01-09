@@ -1,0 +1,71 @@
+# iam roles
+resource "aws_iam_role" "dev-ec2-role" {
+  name = "${var.application_name}-ec2-role"
+
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "ec2.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
+}
+EOF
+}
+
+resource "aws_iam_instance_profile" "dev-ec2-instance-profile" {
+  name = "${var.application_name}-ec2-instance-profile"
+  role = "${aws_iam_role.dev-ec2-role.name}"
+}
+
+# service
+resource "aws_iam_role" "dev-elasticbeanstalk-service-role" {
+  name = "dev-elasticbeanstalk-service-role"
+
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "elasticbeanstalk.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": ""
+    }
+  ]
+}
+EOF
+}
+
+# policies
+resource "aws_iam_policy_attachment" "dev-policy-attachment-1" {
+  name       = "${var.application_name}-policy-attachment-1"
+  roles      = ["${aws_iam_role.dev-ec2-role.name}"]
+  policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkWebTier"
+}
+
+resource "aws_iam_policy_attachment" "dev-policy-attachment-2" {
+  name       = "${var.application_name}-policy-attachment-2"
+  roles      = ["${aws_iam_role.dev-ec2-role.name}"]
+  policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkMulticontainerDocker"
+}
+
+resource "aws_iam_policy_attachment" "dev-policy-attachment-3" {
+  name       = "${var.application_name}-policy-attachment-3"
+  roles      = ["${aws_iam_role.dev-ec2-role.name}"]
+  policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkWorkerTier"
+}
+
+resource "aws_iam_policy_attachment" "dev-policy-attachment-4" {
+  name       = "${var.application_name}-policy-attachment-4"
+  roles      = ["${aws_iam_role.dev-elasticbeanstalk-service-role.name}"]
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkEnhancedHealth"
+}
