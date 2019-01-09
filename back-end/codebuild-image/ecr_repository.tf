@@ -1,8 +1,9 @@
 resource "aws_ecr_repository" "codebuild_repository" {
   name = "${var.codebuild_image_name}"
+
   tags = {
-    Project = "${var.application_name}",
-    Team = "${var.team_name}"
+    Project = "${var.application_name}"
+    Team    = "${var.team_name}"
     Version = "${var.version}"
   }
 }
