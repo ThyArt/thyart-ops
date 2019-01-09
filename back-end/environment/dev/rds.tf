@@ -39,7 +39,7 @@ resource "aws_db_instance" "dev-rds-database" {
   engine_version          = "5.6.41"
   instance_class          = "db.t2.micro"
   identifier              = "${var.application_name}-dev"
-  name                    = "thyart"
+  name                    = "thyartdev"
   username                = "thyartapidev"
   password                = "${random_string.dev-rds-database-password.result}"
   db_subnet_group_name    = "${aws_db_subnet_group.dev-rds-subnet-group.name}"
