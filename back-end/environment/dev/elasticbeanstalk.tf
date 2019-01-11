@@ -1,27 +1,3 @@
-# key pair
-resource "aws_key_pair" "dev-key-pair" {
-  key_name   = "${var.application_name}-dev"
-  public_key = "${file("${var.ssh_public_key}")}"
-}
-
-# sec group
-resource "aws_security_group" "dev-environment-security-group" {
-  vpc_id      = "${aws_vpc.dev-vpc.id}"
-  name        = "${var.application_name}-dev"
-  description = "App dev security group"
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-
-  tags {
-    Name = "${var.application_name}-dev"
-  }
-}
-
 resource "aws_elastic_beanstalk_environment" "dev-environment" {
   name                = "${var.application_name}-dev"
   application         = "${var.application_name}"

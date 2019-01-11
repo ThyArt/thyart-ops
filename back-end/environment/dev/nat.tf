@@ -1,4 +1,3 @@
-# nat gw
 resource "aws_eip" "dev-nat" {
   vpc = true
 }

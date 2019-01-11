@@ -1,4 +1,3 @@
-# Internet VPC
 resource "aws_vpc" "dev-vpc" {
   cidr_block           = "10.0.0.0/16"
   instance_tenancy     = "default"
@@ -11,7 +10,6 @@ resource "aws_vpc" "dev-vpc" {
   }
 }
 
-# Internet GW
 resource "aws_internet_gateway" "dev-gateway" {
   vpc_id = "${aws_vpc.dev-vpc.id}"
 
@@ -20,7 +18,6 @@ resource "aws_internet_gateway" "dev-gateway" {
   }
 }
 
-# route tables
 resource "aws_route_table" "dev-route-table-public" {
   vpc_id = "${aws_vpc.dev-vpc.id}"
 
@@ -34,7 +31,6 @@ resource "aws_route_table" "dev-route-table-public" {
   }
 }
 
-# Subnets
 resource "aws_subnet" "dev-subnet-public-1" {
   vpc_id                  = "${aws_vpc.dev-vpc.id}"
   cidr_block              = "10.0.1.0/24"
@@ -101,7 +97,6 @@ resource "aws_subnet" "dev-subnet-private-3" {
   }
 }
 
-# route associations public
 resource "aws_route_table_association" "dev-route-table-association-public-1" {
   subnet_id      = "${aws_subnet.dev-subnet-public-1.id}"
   route_table_id = "${aws_route_table.dev-route-table-public.id}"
@@ -115,4 +110,32 @@ resource "aws_route_table_association" "dev-route-table-association-public-2" {
 resource "aws_route_table_association" "dev-route-table-association-public-3" {
   subnet_id      = "${aws_subnet.dev-subnet-public-3.id}"
   route_table_id = "${aws_route_table.dev-route-table-public.id}"
+}
+
+resource "aws_route_table" "dev-route-table-private" {
+  vpc_id = "${aws_vpc.dev-vpc.id}"
+
+  route {
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = "${aws_nat_gateway.dev-nat-gateway.id}"
+  }
+
+  tags {
+    Name = "${var.application_name}-dev-private-1"
+  }
+}
+
+resource "aws_route_table_association" "dev-route-table-association-private-1" {
+  subnet_id      = "${aws_subnet.dev-subnet-private-1.id}"
+  route_table_id = "${aws_route_table.dev-route-table-private.id}"
+}
+
+resource "aws_route_table_association" "dev-route-table-association-private-2" {
+  subnet_id      = "${aws_subnet.dev-subnet-private-2.id}"
+  route_table_id = "${aws_route_table.dev-route-table-private.id}"
+}
+
+resource "aws_route_table_association" "dev-route-table-association-private-3" {
+  subnet_id      = "${aws_subnet.dev-subnet-private-3.id}"
+  route_table_id = "${aws_route_table.dev-route-table-private.id}"
 }

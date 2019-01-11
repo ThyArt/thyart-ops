@@ -1,4 +1,3 @@
-# iam roles
 resource "aws_iam_role" "dev-ec2-role" {
   name = "${var.application_name}-ec2-role"
 
@@ -24,7 +23,6 @@ resource "aws_iam_instance_profile" "dev-ec2-instance-profile" {
   role = "${aws_iam_role.dev-ec2-role.name}"
 }
 
-# service
 resource "aws_iam_role" "dev-elasticbeanstalk-service-role" {
   name = "dev-elasticbeanstalk-service-role"
 
@@ -45,7 +43,6 @@ resource "aws_iam_role" "dev-elasticbeanstalk-service-role" {
 EOF
 }
 
-# policies
 resource "aws_iam_policy_attachment" "dev-policy-attachment-1" {
   name       = "${var.application_name}-policy-attachment-1"
   roles      = ["${aws_iam_role.dev-ec2-role.name}"]
