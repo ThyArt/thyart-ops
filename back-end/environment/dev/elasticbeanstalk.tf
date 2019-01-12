@@ -2,7 +2,7 @@ resource "aws_elastic_beanstalk_environment" "dev-environment" {
   name                = "${var.application_name}-dev"
   application         = "${var.application_name}"
   solution_stack_name = "64bit Amazon Linux 2018.03 v2.8.5 running PHP 7.2"
-  cname_prefix        = "${var.application_name}-dev-a2b6d0"
+  cname_prefix        = "${var.application_name}-dev"
 
   setting {
     namespace = "aws:ec2:vpc"
