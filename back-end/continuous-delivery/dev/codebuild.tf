@@ -1,21 +1,20 @@
 resource "aws_codebuild_project" "dev-codebuild-project" {
-  "artifacts" {
+  artifacts {
     type = "CODEPIPELINE"
   }
 
-  "environment" {
+  environment {
     compute_type = "BUILD_GENERAL1_SMALL"
-    image        = "${data.aws_ecr_repository.codebuild-repository.repository_url}:latest"
+    image        = "${data.aws_ecr_repository.ecr-repository.repository_url}:latest"
     type         = "LINUX_CONTAINER"
 
-
     environment_variable {
-      name = "ACCESS_KEY_ID"
+      name  = "ACCESS_KEY_ID"
       value = "${var.codebuild_user_access_key_id}"
     }
 
     environment_variable {
-      name = "SECRET_ACCESS_KEY"
+      name  = "SECRET_ACCESS_KEY"
       value = "${var.codebuild_user_secret_access_key}"
     }
   }
@@ -23,7 +22,7 @@ resource "aws_codebuild_project" "dev-codebuild-project" {
   name         = "${var.application_name}-dev"
   service_role = "${aws_iam_role.dev-codebuild-role.arn}"
 
-  "source" {
+  source {
     type = "CODEPIPELINE"
   }
 
