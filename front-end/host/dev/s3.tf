@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "hosting-bucket" {
-  bucket = "${var.application_name}"
+  bucket = "${var.application_name}-dev"
   acl    = "public-read"
 
   website {
@@ -20,7 +20,7 @@ resource "aws_s3_bucket_policy" "hosting-bucket-policy" {
             "Effect": "Allow",
             "Principal": "*",
             "Action": "s3:GetObject",
-            "Resource": "arn:aws:s3:::${var.application_name}/*"
+            "Resource": "arn:aws:s3:::${var.application_name}-dev/*"
         }
     ]
 }
