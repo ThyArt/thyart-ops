@@ -3,4 +3,3 @@ variable "aws_region" {
 }
 
 variable "application_name" {}
-variable "codebuild_image_name" {}
