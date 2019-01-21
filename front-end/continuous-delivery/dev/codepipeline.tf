@@ -48,5 +48,19 @@ resource aws_codepipeline "dev-codepipeline" {
     }
   }
 
-  //TODO Add Lambda stage here
+  stage {
+    name = "Deploy"
+
+    "action" {
+      category = "Deploy"
+      name     = "Deploy"
+      owner    = "AWS"
+      provider = "AWS Lambda"
+      version  = "1"
+
+      configuration {
+        ProjectName = "${aws_lambda_function.staticS3Deploy}"
+      }
+    }
+  }
 }
