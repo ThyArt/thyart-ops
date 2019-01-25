@@ -52,14 +52,17 @@ resource aws_codepipeline "dev-codepipeline" {
     name = "Deploy"
 
     "action" {
-      category = "Deploy"
-      name     = "Deploy"
-      owner    = "AWS"
-      provider = "AWS Lambda"
-      version  = "1"
+      category         = "Invoke"
+      name             = "Deploy"
+      owner            = "AWS"
+      provider         = "Lambda"
+      input_artifacts  = ["BuildArtifact"]
+      output_artifacts = ["Thyart-Web-Dev"]
+      version          = "1"
 
       configuration {
-        ProjectName = "${aws_lambda_function.staticS3Deploy}"
+        FunctionName   = "${aws_lambda_function.statics3deploy.function_name}"
+        UserParameters = "{\"artifact\":\"BuildArtifact\", \"s3StaticSiteBucket\":\"thyart-web-dev\", \"s3StaticSiteBucketRegion\":\"eu-west-1\", \"sourceDirectory\":\"./build\"}"
       }
     }
   }

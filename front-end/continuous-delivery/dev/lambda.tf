@@ -1,8 +1,14 @@
-resource "aws_lambda_function" "staticS3Deploy" {
-  filename         = "front-end/deployment-lambda/staticS3Deploy.zip"
-  function_name    = "staticS3Deploy"
-  role             = "${aws_iam_role.iam_for_lambda.arn}"
-  handler          = "exports.test"
-  source_code_hash = "${base64sha256(file("staticS3Deploy.zip"))}"
+resource "aws_lambda_function" "statics3deploy" {
+  function_name    = "statics3deploy"
+  handler          = "statics3deploy.handler"
+  filename         = "../../deployment-lambda/statics3deploy.zip"
+  source_code_hash = "${base64sha256(file("../../deployment-lambda/statics3deploy.zip"))}"
   runtime          = "nodejs8.10"
+  role             = "${aws_iam_role.dev-lambda-role.arn}"
+}
+
+resource "aws_lambda_permission" "allow-dev-codebuild" {
+  action        = "lambda:InvokeFunction"
+  function_name = "${aws_lambda_function.statics3deploy.function_name}"
+  principal     = "events.amazonaws.com"
 }
