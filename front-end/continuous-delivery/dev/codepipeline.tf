@@ -62,7 +62,7 @@ resource aws_codepipeline "dev-codepipeline" {
 
       configuration {
         FunctionName   = "${aws_lambda_function.statics3deploy.function_name}"
-        UserParameters = "{\"artifact\":\"BuildArtifact\", \"s3StaticSiteBucket\":\"thyart-web-dev\", \"s3StaticSiteBucketRegion\":\"eu-west-1\", \"sourceDirectory\":\"./build\"}"
+        UserParameters = "{\"artifact\":\"BuildArtifact\", \"s3StaticSiteBucket\":\"${data.aws_s3_bucket.s3-static-website-bucket.bucket}\", \"s3StaticSiteBucketRegion\":\"${var.aws_region}\", \"sourceDirectory\":\"build\"}"
       }
     }
   }
