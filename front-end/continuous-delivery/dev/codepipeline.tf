@@ -53,7 +53,7 @@ resource aws_codepipeline "dev-codepipeline" {
 
     "action" {
       category         = "Invoke"
-      name             = "Deploy"
+      name             = "Invoke"
       owner            = "AWS"
       provider         = "Lambda"
       input_artifacts  = ["BuildArtifact"]

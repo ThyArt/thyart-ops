@@ -1,3 +1,7 @@
+/*
+** TODO All IAM policies have way too many accesses for what's necessary
+*/
+
 resource aws_iam_role "dev-codebuild-role" {
   name = "${var.application_name}-dev-codebuild-service-role"
 
@@ -146,6 +150,13 @@ resource "aws_iam_role_policy" "dev-codepipeline-role-policy" {
             "codecommit:GetUploadArchiveStatus",
             "codecommit:CancelUploadArchive",
             "codecommit:UploadArchive"
+         ],
+         "Resource":"*"
+      },
+      {
+         "Effect":"Allow",
+         "Action":[
+            "lambda:*"
          ],
          "Resource":"*"
       }
