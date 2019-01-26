@@ -1,10 +1,11 @@
 resource "aws_s3_bucket" "hosting-bucket" {
-  bucket = "${var.application_name}-dev"
-  acl    = "public-read"
+  bucket        = "${var.application_name}-dev"
+  acl           = "public-read"
+  force_destroy = true
 
   website {
-    index_document = "index.html"
-    error_document = "index.html"
+    index_document = "build/index.html"
+    error_document = "build/index.html"
   }
 }
 

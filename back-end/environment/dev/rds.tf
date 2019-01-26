@@ -1,6 +1,7 @@
 resource "random_string" "dev-rds-database-password" {
-  length  = 32
-  special = true
+  length           = 32
+  special          = true
+  override_special = "!#$%&*()-_=+[]{}<>:?"
 }
 
 # rds

@@ -1,7 +1,7 @@
 resource "aws_security_group" "dev-environment-security-group" {
   vpc_id      = "${aws_vpc.dev-vpc.id}"
   name        = "${var.application_name}-dev"
-  description = "App dev security group"
+  description = "${var.application_name}-dev security group"
 
   egress {
     from_port   = 0
