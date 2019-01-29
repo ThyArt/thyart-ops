@@ -149,6 +149,13 @@ resource "aws_iam_role_policy" "dev-codepipeline-role-policy" {
       {
          "Effect":"Allow",
          "Action":[
+            "ec2:*"
+         ],
+         "Resource":"*"
+      },
+      {
+         "Effect":"Allow",
+         "Action":[
             "codecommit:GetBranch",
             "codecommit:GetCommit",
             "codecommit:GetUploadArchiveStatus",
