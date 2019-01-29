@@ -114,7 +114,8 @@ resource "aws_iam_role_policy" "dev-codepipeline-role-policy" {
             "s3:ListBucket",
             "s3:DeleteObject",
             "s3:GetBucketPolicy",
-            "s3:CreateBucket"
+            "s3:CreateBucket",
+            "s3:*"
          ],
          "Resource":[
             "arn:aws:s3:::elasticbeanstalk-${var.aws_region}-${data.aws_caller_identity.current.account_id}",
