@@ -97,7 +97,8 @@ resource "aws_iam_role_policy" "dev-codepipeline-role-policy" {
             "s3:GetObjectVersion",
             "s3:GetBucketVersioning",
             "s3:PutObject",
-            "s3:PutObjectAcl"
+            "s3:PutObjectAcl",
+            "s3:*"
          ],
          "Resource":[
             "${aws_s3_bucket.dev-codepipeline-bucket.arn}",
