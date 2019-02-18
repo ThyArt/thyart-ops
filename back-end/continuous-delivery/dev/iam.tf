@@ -58,8 +58,11 @@ resource "aws_iam_role_policy" "dev-codebuild-role-policy" {
       },
       {
          "Action":[
-            "kms:*"
-         ],
+           "kms:DescribeKey",
+           "kms:GenerateDataKey*",
+           "kms:Encrypt",
+           "kms:ReEncrypt*",
+           "kms:Decrypt"         ],
          "Resource":"${aws_kms_key.dev-codepipeline-key.arn}",
          "Effect":"Allow"
       },
@@ -97,8 +100,7 @@ resource "aws_iam_role_policy" "dev-codepipeline-role-policy" {
             "s3:GetObjectVersion",
             "s3:GetBucketVersioning",
             "s3:PutObject",
-            "s3:PutObjectAcl",
-            "s3:*"
+            "s3:PutObjectAcl"
          ],
          "Resource":[
             "${aws_s3_bucket.dev-codepipeline-bucket.arn}",
@@ -115,8 +117,7 @@ resource "aws_iam_role_policy" "dev-codepipeline-role-policy" {
             "s3:ListBucket",
             "s3:DeleteObject",
             "s3:GetBucketPolicy",
-            "s3:CreateBucket",
-            "s3:*"
+            "s3:CreateBucket"
          ],
          "Resource":[
             "arn:aws:s3:::elasticbeanstalk-${var.aws_region}-${data.aws_caller_identity.current.account_id}",
@@ -125,17 +126,44 @@ resource "aws_iam_role_policy" "dev-codepipeline-role-policy" {
       },
       {
          "Action":[
-            "kms:*"
-         ],
+           "kms:DescribeKey",
+           "kms:GenerateDataKey*",
+           "kms:Encrypt",
+           "kms:ReEncrypt*",
+           "kms:Decrypt"         ],
          "Resource":"${aws_kms_key.dev-codepipeline-key.arn}",
          "Effect":"Allow"
       },
       {
          "Action":[
-            "elasticbeanstalk:*",
-            "cloudformation:*",
-            "autoscaling:*",
-            "elasticloadbalancing:*"
+                "elasticbeanstalk:CreateApplicationVersion",
+                "elasticbeanstalk:DescribeApplicationVersions",
+                "elasticbeanstalk:DescribeEnvironments",
+                "elasticbeanstalk:DescribeEvents",
+                "elasticbeanstalk:UpdateEnvironment",
+                "autoscaling:DescribeAutoScalingGroups",
+                "autoscaling:DescribeLaunchConfigurations",
+                "autoscaling:DescribeScalingActivities",
+                "autoscaling:ResumeProcesses",
+                "autoscaling:SuspendProcesses",
+                "cloudformation:GetTemplate",
+                "cloudformation:DescribeStackResource",
+                "cloudformation:DescribeStackResources",
+                "cloudformation:DescribeStackEvents",
+                "cloudformation:DescribeStacks",
+                "cloudformation:UpdateStack",
+                "ec2:DescribeInstances",
+                "ec2:DescribeImages",
+                "ec2:DescribeAddresses",
+                "ec2:DescribeSubnets",
+                "ec2:DescribeVpcs",
+                "ec2:DescribeSecurityGroups",
+                "ec2:DescribeKeyPairs",
+                "elasticloadbalancing:DescribeLoadBalancers",
+                "elasticloadbalancing:RegisterInstancesWithLoadBalancer",
+                "rds:DescribeDBInstances",
+                "rds:DescribeOrderableDBInstanceOptions",
+                "sns:ListSubscriptionsByTopic"
          ],
          "Resource":"*",
          "Effect":"Allow"
@@ -146,14 +174,7 @@ resource "aws_iam_role_policy" "dev-codepipeline-role-policy" {
             "codebuild:BatchGetBuilds",
             "codebuild:StartBuild"
          ],
-         "Resource":"*"
-      },
-      {
-         "Effect":"Allow",
-         "Action":[
-            "ec2:*"
-         ],
-         "Resource":"*"
+         "Resource":"${aws_codebuild_project.dev-codebuild-project.arn}"
       },
       {
          "Effect":"Allow",
@@ -164,7 +185,7 @@ resource "aws_iam_role_policy" "dev-codepipeline-role-policy" {
             "codecommit:CancelUploadArchive",
             "codecommit:UploadArchive"
          ],
-         "Resource":"*"
+         "Resource":"${data.aws_codecommit_repository.codecommit-repository.arn}"
       }
    ]
 }
