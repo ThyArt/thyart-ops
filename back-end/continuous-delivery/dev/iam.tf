@@ -57,12 +57,46 @@ resource "aws_iam_role_policy" "dev-codebuild-role-policy" {
          ]
       },
       {
+          "Effect": "Allow",
+            "Action": [
+                "ec2:CreateNetworkInterface",
+                "ec2:DescribeDhcpOptions",
+                "ec2:DescribeNetworkInterfaces",
+                "ec2:DeleteNetworkInterface",
+                "ec2:DescribeSubnets",
+                "ec2:DescribeSecurityGroups",
+                "ec2:DescribeVpcs"
+            ],
+            "Resource": "*"
+        },
+    {
+    "Effect": "Allow",
+            "Action": [
+                "ec2:CreateNetworkInterfacePermission"
+            ],
+            "Resource": "arn:aws:ec2:eu-west-1:${data.aws_caller_identity.current.account_id}:network-interface/*",
+            "Condition": {
+                "StringEquals": {
+                    "ec2:Subnet": [
+                        "${data.aws_subnet.codebuild-subnet-public-1.arn}",
+                        "${data.aws_subnet.codebuild-subnet-public-2.arn}",
+                        "${data.aws_subnet.codebuild-subnet-public-3.arn}",
+                        "${data.aws_subnet.codebuild-subnet-private-1.arn}",
+                        "${data.aws_subnet.codebuild-subnet-private-2.arn}",
+                        "${data.aws_subnet.codebuild-subnet-private-3.arn}"
+                    ],
+                    "ec2:AuthorizedService": "codebuild.amazonaws.com"
+                }
+            }
+        },
+      {
          "Action":[
            "kms:DescribeKey",
            "kms:GenerateDataKey*",
            "kms:Encrypt",
            "kms:ReEncrypt*",
-           "kms:Decrypt"         ],
+           "kms:Decrypt"
+         ],
          "Resource":"${aws_kms_key.dev-codepipeline-key.arn}",
          "Effect":"Allow"
       },
