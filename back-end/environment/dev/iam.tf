@@ -66,29 +66,3 @@ resource "aws_iam_policy_attachment" "dev-policy-attachment-4" {
   roles      = ["${aws_iam_role.dev-elasticbeanstalk-service-role.name}"]
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSElasticBeanstalkEnhancedHealth"
 }
-
-resource "aws_iam_role_policy" "dev-codepipeline-role-policy" {
-  role = "${aws_iam_role.dev-ec2-role.id}"
-
-  policy = <<EOF
-{
-   "Version":"2012-10-17",
-   "Statement":[
-      {
-         "Effect":"Allow",
-         "Action":[
-            "s3:GetObject",
-            "s3:GetObjectVersion",
-            "s3:GetBucketVersioning",
-            "s3:PutObject",
-            "s3:PutObjectAcl"
-         ],
-         "Resource":[
-            "${data.aws_s3_bucket.codepipeline-bucket.arn}",
-            "${data.aws_s3_bucket.codepipeline-bucket.arn}/*"
-         ]
-      }
-   ]
-}
-EOF
-}

@@ -4,19 +4,6 @@ resource "random_string" "dev-rds-database-password" {
   override_special = "!#$%&*()-_=+[]{}<>:?"
 }
 
-resource "random_string" "dev-rds-database-username" {
-  length  = 8
-  special = false
-  upper   = false
-}
-
-resource "random_string" "dev-rds-database-name" {
-  length  = 8
-  special = false
-  upper   = false
-  number  = false
-}
-
 # rds
 resource "aws_db_instance" "dev-rds-database" {
   allocated_storage       = 10
@@ -24,8 +11,8 @@ resource "aws_db_instance" "dev-rds-database" {
   engine_version          = "5.7.25"
   instance_class          = "db.t2.micro"
   identifier              = "${var.application_name}-dev"
-  name                    = "${random_string.dev-rds-database-name.result}"
-  username                = "${random_string.dev-rds-database-username.result}"
+  name                    = "thyart"
+  username                = "thyartapi"
   password                = "${random_string.dev-rds-database-password.result}"
   db_subnet_group_name    = "${aws_db_subnet_group.dev-rds-subnet-group.name}"
   parameter_group_name    = "default.mysql5.7"

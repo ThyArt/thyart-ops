@@ -5,6 +5,7 @@ resource "aws_security_group" "codebuild-rds-security-group" {
 
   tags {
     Name = "rds-codebuild"
+    Name = "rds"
   }
 }
 
@@ -27,6 +28,7 @@ resource "aws_default_security_group" "default" {
 
   tags {
     Name = "rds-codebuild"
+    Name = "default"
   }
 }
 
@@ -36,7 +38,7 @@ resource "aws_security_group_rule" "codebuild-rule-allow-mysql" {
   to_port                  = 3306
   protocol                 = "tcp"
   security_group_id        = "${aws_security_group.codebuild-rds-security-group.id}"
-  source_security_group_id = "${aws_security_group.codebuild-rds-security-group.id}"
+  source_security_group_id = "${aws_default_security_group.default.id}"
 }
 
 resource "aws_security_group_rule" "codebuild-rule-allow-outgoing" {

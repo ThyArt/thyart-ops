@@ -36,7 +36,7 @@ resource "null_resource" "build-image" {
   depends_on = ["aws_ecr_repository.codebuild-repository"]
 
   provisioner "local-exec" {
-    command = "docker build -t ${aws_ecr_repository.codebuild-repository.repository_url} --build-arg \"db_endpoint=${aws_db_instance.codebuild-rds-database.endpoint}\" --build-arg \"db_username=${aws_db_instance.codebuild-rds-database.username}\" --build-arg \"db_password=${aws_db_instance.codebuild-rds-database.password}\" --build-arg \"db_name=${aws_db_instance.codebuild-rds-database.name}\" --build-arg \"db_port=${aws_db_instance.codebuild-rds-database.port}\" ."
+    command = "docker build -t ${aws_ecr_repository.codebuild-repository.repository_url} --build-arg \"db_endpoint=${aws_db_instance.codebuild-rds-database.address}\" --build-arg \"db_username=${aws_db_instance.codebuild-rds-database.username}\" --build-arg \"db_password=${aws_db_instance.codebuild-rds-database.password}\" --build-arg \"db_name=${aws_db_instance.codebuild-rds-database.name}\" --build-arg \"db_port=${aws_db_instance.codebuild-rds-database.port}\" ."
   }
 }
 

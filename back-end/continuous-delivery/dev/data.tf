@@ -61,5 +61,6 @@ data "aws_subnet" "codebuild-subnet-private-3" {
 data "aws_security_groups" "codebuild-security-groups" {
   tags {
     Name = "rds-codebuild"
+    Name = "default"
   }
 }

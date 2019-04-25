@@ -1,3 +1,0 @@
-[submodule "back-end/php-sample-app"]
-	path = back-end/php-sample-app
-	url = https://github.com/aws-samples/eb-demo-php-simple-app.git
