@@ -3,7 +3,7 @@ resource "aws_codepipeline" "dev-codepipeline" {
   role_arn = "${aws_iam_role.dev-codepipeline-role.arn}"
 
   artifact_store {
-    location = "${aws_s3_bucket.dev-codepipeline-bucket.bucket}"
+    location = "${data.aws_s3_bucket.codepipeline-bucket.bucket}"
     type     = "S3"
 
     encryption_key {

@@ -103,8 +103,8 @@ resource "aws_iam_role_policy" "dev-codebuild-role-policy" {
       {
          "Effect":"Allow",
          "Resource":[
-            "${aws_s3_bucket.dev-codepipeline-bucket.arn}",
-            "${aws_s3_bucket.dev-codepipeline-bucket.arn}/*"
+            "${data.aws_s3_bucket.codepipeline-bucket.arn}",
+            "${data.aws_s3_bucket.codepipeline-bucket.arn}/*"
          ],
          "Action":[
             "s3:PutObject",
@@ -137,8 +137,8 @@ resource "aws_iam_role_policy" "dev-codepipeline-role-policy" {
             "s3:PutObjectAcl"
          ],
          "Resource":[
-            "${aws_s3_bucket.dev-codepipeline-bucket.arn}",
-            "${aws_s3_bucket.dev-codepipeline-bucket.arn}/*"
+            "${data.aws_s3_bucket.codepipeline-bucket.arn}",
+            "${data.aws_s3_bucket.codepipeline-bucket.arn}/*"
          ]
       },
       {

@@ -4,6 +4,14 @@ data "aws_ecr_repository" "ecr-repository" {
 
 data "aws_caller_identity" "current" {}
 
+data "aws_s3_bucket" "codebuild-bucket" {
+  bucket = "${var.application_name}-codebuild"
+}
+
+data "aws_s3_bucket" "codepipeline-bucket" {
+  bucket = "${var.application_name}-codebuild"
+}
+
 data "aws_codecommit_repository" "codecommit-repository" {
   repository_name = "thyart-api"
 }

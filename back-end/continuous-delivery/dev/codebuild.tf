@@ -42,6 +42,6 @@ resource "aws_codebuild_project" "dev-codebuild-project" {
 
   cache {
     type     = "S3"
-    location = "${aws_s3_bucket.dev-codebuild-bucket.bucket}"
+    location = "${data.aws_s3_bucket.codebuild-bucket.bucket}"
   }
 }
