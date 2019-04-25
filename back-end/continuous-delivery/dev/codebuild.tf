@@ -22,8 +22,9 @@ resource "aws_codebuild_project" "dev-codebuild-project" {
   vpc_config {
     security_group_ids = ["${data.aws_security_groups.codebuild-security-groups.ids}"]
     vpc_id             = "${data.aws_vpc.codebuild-vpc.id}"
-    subnets            = [
-      "${data.aws_subnet.codebuild-subnet-public-1.id}",
+
+    subnets =
+    ["${data.aws_subnet.codebuild-subnet-public-1.id}",
       "${data.aws_subnet.codebuild-subnet-public-2.id}",
       "${data.aws_subnet.codebuild-subnet-public-3.id}",
       "${data.aws_subnet.codebuild-subnet-private-1.id}",

@@ -1,7 +1,7 @@
 resource "aws_elastic_beanstalk_environment" "dev-environment" {
   name                = "${var.application_name}-dev"
   application         = "${var.application_name}"
-  solution_stack_name = "64bit Amazon Linux 2018.03 v2.8.5 running PHP 7.2"
+  solution_stack_name = "${data.aws_elastic_beanstalk_solution_stack.dev-solution-stack.name}"
   cname_prefix        = "${var.application_name}-dev"
 
   setting {
@@ -116,6 +116,12 @@ resource "aws_elastic_beanstalk_environment" "dev-environment" {
     namespace = "aws:elasticbeanstalk:application:environment"
     name      = "RDS_HOSTNAME"
     value     = "${aws_db_instance.dev-rds-database.endpoint}"
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
+    name      = "RDS_PORT"
+    value     = "${aws_db_instance.dev-rds-database.port}"
   }
 
   setting {
