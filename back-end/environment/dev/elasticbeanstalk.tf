@@ -1,3 +1,8 @@
+resource "random_string" "dev-passport-client-secret" {
+  length  = 40
+  special = false
+}
+
 resource "aws_elastic_beanstalk_environment" "dev-environment" {
   name                = "${var.application_name}-dev"
   application         = "${var.application_name}"
@@ -122,6 +127,12 @@ resource "aws_elastic_beanstalk_environment" "dev-environment" {
     namespace = "aws:elasticbeanstalk:application:environment"
     name      = "RDS_PORT"
     value     = "${aws_db_instance.dev-rds-database.port}"
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
+    name      = "PASSPORT_CLIENT_SECRET"
+    value     = "${random_string.dev-passport-client-secret.result}"
   }
 
   setting {
