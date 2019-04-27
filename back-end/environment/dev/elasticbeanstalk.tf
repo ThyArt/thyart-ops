@@ -12,13 +12,13 @@ resource "aws_elastic_beanstalk_environment" "dev-environment" {
   setting {
     namespace = "aws:ec2:vpc"
     name      = "VPCId"
-    value     = "${aws_vpc.dev-vpc.id}"
+    value     = "${data.aws_vpc.backend-vpc.id}"
   }
 
   setting {
     namespace = "aws:ec2:vpc"
     name      = "Subnets"
-    value     = "${aws_subnet.dev-subnet-private-1.id},${aws_subnet.dev-subnet-private-2.id}"
+    value     = "${data.aws_subnet.backend-subnet-private-1.id},${data.aws_subnet.backend-subnet-private-2.id},${data.aws_subnet.backend-subnet-private-3.id}"
   }
 
   setting {
@@ -42,7 +42,7 @@ resource "aws_elastic_beanstalk_environment" "dev-environment" {
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "EC2KeyName"
-    value     = "${aws_key_pair.dev-key-pair.id}"
+    value     = "${var.application_name}-dev"
   }
 
   setting {
@@ -66,7 +66,7 @@ resource "aws_elastic_beanstalk_environment" "dev-environment" {
   setting {
     namespace = "aws:ec2:vpc"
     name      = "ELBSubnets"
-    value     = "${aws_subnet.dev-subnet-public-1.id},${aws_subnet.dev-subnet-public-2.id}"
+    value     = "${data.aws_subnet.backend-subnet-public-1.id},${data.aws_subnet.backend-subnet-public-2.id},${data.aws_subnet.backend-subnet-public-3.id}"
   }
 
   setting {
