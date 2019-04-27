@@ -30,5 +30,10 @@ resource "aws_db_instance" "dev-rds-database" {
 resource "aws_db_subnet_group" "dev-rds-subnet-group" {
   name        = "rds-${var.application_name}-dev"
   description = "RDS subnet group"
-  subnet_ids  = ["${aws_subnet.dev-subnet-private-1.id}", "${aws_subnet.dev-subnet-private-2.id}"]
+
+  subnet_ids = [
+    "${data.aws_subnet.backend-subnet-private-1.id}",
+    "${data.aws_subnet.backend-subnet-private-2.id}",
+    "${data.aws_subnet.backend-subnet-private-3.id}",
+  ]
 }
