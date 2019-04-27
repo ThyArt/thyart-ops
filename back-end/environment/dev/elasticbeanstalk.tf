@@ -42,7 +42,7 @@ resource "aws_elastic_beanstalk_environment" "dev-environment" {
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "EC2KeyName"
-    value     = "${aws_key_pair.dev-key-pair.id}"
+    value     = "${var.application_name}-dev"
   }
 
   setting {
