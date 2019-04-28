@@ -19,3 +19,21 @@ resource "aws_s3_bucket_object" "backend-prod-ssh-key" {
   key     = "${var.backend_name}-prod.pem"
   content = "${tls_private_key.backend-prod-private-key.private_key_pem}"
 }
+
+resource "aws_s3_bucket_object" "frontend-dev-ssh-key" {
+  bucket  = "${aws_s3_bucket.key-pair-bucket.bucket}"
+  key     = "${var.frontend_name}-dev.pem"
+  content = "${tls_private_key.frontend-dev-private-key.private_key_pem}"
+}
+
+resource "aws_s3_bucket_object" "frontend-test-ssh-key" {
+  bucket  = "${aws_s3_bucket.key-pair-bucket.bucket}"
+  key     = "${var.frontend_name}-test.pem"
+  content = "${tls_private_key.frontend-test-private-key.private_key_pem}"
+}
+
+resource "aws_s3_bucket_object" "frontend-prod-ssh-key" {
+  bucket  = "${aws_s3_bucket.key-pair-bucket.bucket}"
+  key     = "${var.frontend_name}-prod.pem"
+  content = "${tls_private_key.frontend-prod-private-key.private_key_pem}"
+}
