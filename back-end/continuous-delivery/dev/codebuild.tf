@@ -17,6 +17,11 @@ resource "aws_codebuild_project" "dev-codebuild-project" {
       name  = "SECRET_ACCESS_KEY"
       value = "${var.codebuild_user_secret_access_key}"
     }
+
+    environment_variable {
+      name  = "DEPLOYMENT_ENVIRONMENT"
+      value = "dev"
+    }
   }
 
   vpc_config {
