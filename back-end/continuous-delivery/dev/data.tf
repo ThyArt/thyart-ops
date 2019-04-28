@@ -9,7 +9,7 @@ data "aws_s3_bucket" "codebuild-bucket" {
 }
 
 data "aws_s3_bucket" "codepipeline-bucket" {
-  bucket = "${var.application_name}-codebuild"
+  bucket = "${var.application_name}-codepipeline"
 }
 
 data "aws_codecommit_repository" "codecommit-repository" {
