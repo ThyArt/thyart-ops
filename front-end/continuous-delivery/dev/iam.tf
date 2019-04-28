@@ -1,7 +1,3 @@
-/*
-** TODO All IAM policies have way too many accesses for what's necessary
-*/
-
 resource aws_iam_role "dev-codebuild-role" {
   name = "${var.application_name}-dev-codebuild-service-role"
 
@@ -35,25 +31,6 @@ resource "aws_iam_role" "dev-codepipeline-role" {
       },
       "Action": "sts:AssumeRole"
     }
-  ]
-}
-EOF
-}
-
-resource "aws_iam_role" "dev-lambda-role" {
-  name = "${var.application_name}-dev-lambda-service-role"
-
-  assume_role_policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Action": "sts:AssumeRole",
-      "Principal": {
-        "Service": "lambda.amazonaws.com"
-      },
-      "Effect": "Allow"
-      }
   ]
 }
 EOF
@@ -156,134 +133,11 @@ resource "aws_iam_role_policy" "dev-codepipeline-role-policy" {
       {
          "Effect":"Allow",
          "Action":[
-            "lambda:*"
+            "elasticbeanstalk:*"
          ],
          "Resource":"*"
       }
    ]
-}
-EOF
-}
-
-resource "aws_iam_role_policy" "lambda_role_policy" {
-  role = "${aws_iam_role.dev-lambda-role.id}"
-  name = "${var.application_name}-dev-lambda-service-role-policy"
-
-  policy = <<EOF
-{
-  "Version" : "2012-10-17",
-  "Statement" : [
-    {
-      "Action": [
-        "logs:*"
-      ],
-      "Effect": "Allow",
-      "Resource": "arn:aws:logs:*:*:*"
-    },
-    {
-      "Action": [
-        "codepipeline:PutJobSuccessResult",
-        "codepipeline:PutJobFailureResult"
-        ],
-        "Effect": "Allow",
-        "Resource": "*"
-     },
-  {
-      "Effect" : "Allow",
-      "Action" : [
-        "logs:CreateLogGroup",
-        "logs:CreateLogStream",
-        "logs:PutLogEvents"
-      ],
-      "Resource" : "arn:aws:logs:*:*:*"
-    }, {
-      "Effect" : "Allow",
-            "Action": [
-                "codepipeline:*",
-                "iam:ListRoles",
-                "iam:PassRole",
-                "s3:CreateBucket",
-                "s3:GetBucketPolicy",
-                "s3:GetObject",
-                "s3:ListAllMyBuckets",
-                "s3:ListBucket",
-                "s3:PutBucketPolicy",
-                "codecommit:ListBranches",
-                "codecommit:ListRepositories",
-                "codedeploy:GetApplication",
-                "codedeploy:GetDeploymentGroup",
-                "codedeploy:ListApplications",
-                "codedeploy:ListDeploymentGroups",
-                "elasticbeanstalk:DescribeApplications",
-                "elasticbeanstalk:DescribeEnvironments",
-                "lambda:GetFunctionConfiguration",
-                "lambda:ListFunctions",
-                "opsworks:DescribeApps",
-                "opsworks:DescribeLayers",
-                "opsworks:DescribeStacks",
-                "cloudformation:DescribeStacks",
-                "cloudformation:ListChangeSets"
-            ],
-      "Resource" : "*"
-    }, {
-            "Effect": "Allow",
-            "Action": [
-                "cloudformation:DescribeChangeSet",
-                "cloudformation:DescribeStackResources",
-                "cloudformation:DescribeStacks",
-                "cloudformation:GetTemplate",
-                "cloudformation:ListStackResources",
-                "cloudwatch:*",
-                "cognito-identity:ListIdentityPools",
-                "cognito-sync:GetCognitoEvents",
-                "cognito-sync:SetCognitoEvents",
-                "dynamodb:*",
-                "ec2:DescribeSecurityGroups",
-                "ec2:DescribeSubnets",
-                "ec2:DescribeVpcs",
-                "events:*",
-                "iam:GetPolicy",
-                "iam:GetPolicyVersion",
-                "iam:GetRole",
-                "iam:GetRolePolicy",
-                "iam:ListAttachedRolePolicies",
-                "iam:ListRolePolicies",
-                "iam:ListRoles",
-                "iam:PassRole",
-                "iot:AttachPrincipalPolicy",
-                "iot:AttachThingPrincipal",
-                "iot:CreateKeysAndCertificate",
-                "iot:CreatePolicy",
-                "iot:CreateThing",
-                "iot:CreateTopicRule",
-                "iot:DescribeEndpoint",
-                "iot:GetTopicRule",
-                "iot:ListPolicies",
-                "iot:ListThings",
-                "iot:ListTopicRules",
-                "iot:ReplaceTopicRule",
-                "kinesis:DescribeStream",
-                "kinesis:ListStreams",
-                "kinesis:PutRecord",
-                "kms:ListAliases",
-                "lambda:*",
-                "logs:*",
-                "s3:*",
-                "sns:ListSubscriptions",
-                "sns:ListSubscriptionsByTopic",
-                "sns:ListTopics",
-                "sns:Publish",
-                "sns:Subscribe",
-                "sns:Unsubscribe",
-                "sqs:ListQueues",
-                "sqs:SendMessage",
-                "tag:GetResources",
-                "xray:PutTelemetryRecords",
-                "xray:PutTraceSegments"
-            ],
-            "Resource": "*"
-        }
-  ]
 }
 EOF
 }

@@ -1,9 +1,9 @@
-resource aws_codepipeline "dev-codepipeline" {
+resource "aws_codepipeline" "dev-codepipeline" {
   name     = "${var.application_name}-dev"
   role_arn = "${aws_iam_role.dev-codepipeline-role.arn}"
 
   artifact_store {
-    location = "${aws_s3_bucket.dev-codepipeline-bucket.bucket}"
+    location = "${data.aws_s3_bucket.codepipeline-bucket.bucket}"
     type     = "S3"
 
     encryption_key {
@@ -51,18 +51,17 @@ resource aws_codepipeline "dev-codepipeline" {
   stage {
     name = "Deploy"
 
-    "action" {
-      category         = "Invoke"
-      name             = "Invoke"
-      owner            = "AWS"
-      provider         = "Lambda"
-      input_artifacts  = ["BuildArtifact"]
-      output_artifacts = ["Thyart-Web-Dev"]
-      version          = "1"
+    action {
+      category        = "Deploy"
+      name            = "Deploy"
+      owner           = "AWS"
+      provider        = "ElasticBeanstalk"
+      input_artifacts = ["BuildArtifact"]
+      version         = "1"
 
       configuration {
-        FunctionName   = "${aws_lambda_function.statics3deploy.function_name}"
-        UserParameters = "{\"artifact\":\"BuildArtifact\", \"s3StaticSiteBucket\":\"${data.aws_s3_bucket.s3-static-website-bucket.bucket}\", \"s3StaticSiteBucketRegion\":\"${var.aws_region}\", \"sourceDirectory\":\"build\"}"
+        ApplicationName = "${var.application_name}"
+        EnvironmentName = "${var.application_name}-dev"
       }
     }
   }
