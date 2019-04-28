@@ -1,5 +1,5 @@
-resource "aws_iam_role" "dev-ec2-role" {
-  name = "${var.application_name}-dev-ec2-role"
+resource "aws_iam_role" "prod-ec2-role" {
+  name = "${var.application_name}-prod-ec2-role"
 
   assume_role_policy = <<EOF
 {
@@ -18,13 +18,13 @@ resource "aws_iam_role" "dev-ec2-role" {
 EOF
 }
 
-resource "aws_iam_instance_profile" "dev-ec2-instance-profile" {
-  name = "${var.application_name}-dev-ec2-instance-profile"
-  role = "${aws_iam_role.dev-ec2-role.name}"
+resource "aws_iam_instance_profile" "prod-ec2-instance-profile" {
+  name = "${var.application_name}-prod-ec2-instance-profile"
+  role = "${aws_iam_role.prod-ec2-role.name}"
 }
 
-resource "aws_iam_role" "dev-elasticbeanstalk-service-role" {
-  name = "dev-elasticbeanstalk-service-role"
+resource "aws_iam_role" "prod-elasticbeanstalk-service-role" {
+  name = "prod-elasticbeanstalk-service-role"
 
   assume_role_policy = <<EOF
 {
@@ -43,9 +43,9 @@ resource "aws_iam_role" "dev-elasticbeanstalk-service-role" {
 EOF
 }
 
-resource "aws_iam_role_policy" "dev-ec2-role-policy" {
-  role = "${aws_iam_role.dev-ec2-role.id}"
-  name = "${var.application_name}-dev-ec2-role-policy"
+resource "aws_iam_role_policy" "prod-ec2-role-policy" {
+  role = "${aws_iam_role.prod-ec2-role.id}"
+  name = "${var.application_name}-prod-ec2-role-policy"
 
   policy = <<EOF
 {
@@ -147,9 +147,9 @@ resource "aws_iam_role_policy" "dev-ec2-role-policy" {
 EOF
 }
 
-resource "aws_iam_role_policy" "dev-elasticbeanstalk-role-policy" {
-  role = "${aws_iam_role.dev-elasticbeanstalk-service-role.id}"
-  name = "${var.application_name}-dev-elasticbeanstalk-role-policy"
+resource "aws_iam_role_policy" "prod-elasticbeanstalk-role-policy" {
+  role = "${aws_iam_role.prod-elasticbeanstalk-service-role.id}"
+  name = "${var.application_name}-prod-elasticbeanstalk-role-policy"
 
   policy = <<EOF
 {
