@@ -42,7 +42,7 @@ resource "aws_elastic_beanstalk_environment" "prod-environment" {
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "EC2KeyName"
-    value     = "thyart-api-prod"
+    value     = "${var.application_name}-dev"
   }
 
   setting {

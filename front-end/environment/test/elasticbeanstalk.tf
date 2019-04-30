@@ -42,7 +42,7 @@ resource "aws_elastic_beanstalk_environment" "test-environment" {
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "EC2KeyName"
-    value     = "thyart-api-test"
+    value     = "${var.application_name}-dev"
   }
 
   setting {
