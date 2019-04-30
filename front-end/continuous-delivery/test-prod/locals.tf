@@ -5,7 +5,7 @@ locals {
 // For Terraform O.12 release
 //locals {
 //
-//  backend-connection-json = "${jsondecode(data.aws_secretsmanager_secret_version.frontend-dev-secret-version.secret_string)}"
+//  backend-connection-json = "${jsondecode(data.aws_secretsmanager_secret_version.frontend-test-prod-secret-version.secret_string)}"
 //
 //  backend-connection-variables = {
 //    api-endpoint  = "${local.backend-connection-json["api-endpoint"]}"

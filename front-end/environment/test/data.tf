@@ -1,4 +1,4 @@
-data "aws_elastic_beanstalk_solution_stack" "dev-solution-stack" {
+data "aws_elastic_beanstalk_solution_stack" "test-solution-stack" {
   name_regex  = "^64bit Amazon Linux 2018.03 (.*) running Node.js$"
   most_recent = true
 }

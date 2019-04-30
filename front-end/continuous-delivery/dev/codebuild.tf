@@ -5,7 +5,7 @@ resource "aws_codebuild_project" "dev-codebuild-project" {
 
   "environment" {
     compute_type = "BUILD_GENERAL1_SMALL"
-    image        = "kkarczmarczyk/node-yarn:latest"
+    image        = "${var.application_image}"
     type         = "LINUX_CONTAINER"
 
     environment_variable {
@@ -21,11 +21,6 @@ resource "aws_codebuild_project" "dev-codebuild-project" {
     environment_variable {
       name  = "CLIENT_SECRET"
       value = "${local.backend-connection-variables["client-secret"]}"
-    }
-
-    environment_variable {
-      name  = "DEPLOYMENT_ENVIRONMENT"
-      value = "dev"
     }
   }
 
