@@ -66,8 +66,8 @@ resource "aws_iam_role_policy" "dev-codebuild-role-policy" {
       {
          "Effect":"Allow",
          "Resource":[
-            "${aws_s3_bucket.dev-codepipeline-bucket.arn}",
-            "${aws_s3_bucket.dev-codepipeline-bucket.arn}/*"
+            "${data.aws_s3_bucket.codepipeline-bucket.arn}",
+            "${data.aws_s3_bucket.codepipeline-bucket.arn}/*"
          ],
          "Action":[
             "s3:PutObject",
@@ -100,8 +100,8 @@ resource "aws_iam_role_policy" "dev-codepipeline-role-policy" {
             "s3:PutObjectAcl"
          ],
          "Resource":[
-            "${aws_s3_bucket.dev-codepipeline-bucket.arn}",
-            "${aws_s3_bucket.dev-codepipeline-bucket.arn}/*"
+            "${data.aws_s3_bucket.codepipeline-bucket.arn}",
+            "${data.aws_s3_bucket.codepipeline-bucket.arn}/*"
          ]
       },
       {
@@ -133,9 +133,53 @@ resource "aws_iam_role_policy" "dev-codepipeline-role-policy" {
       {
          "Effect":"Allow",
          "Action":[
-            "elasticbeanstalk:*"
+            "s3:PutObject",
+            "s3:PutObjectAcl",
+            "s3:GetObject",
+            "s3:GetObjectAcl",
+            "s3:ListBucket",
+            "s3:DeleteObject",
+            "s3:GetBucketPolicy",
+            "s3:CreateBucket"
          ],
-         "Resource":"*"
+         "Resource":[
+            "arn:aws:s3:::elasticbeanstalk-${var.aws_region}-${data.aws_caller_identity.current.account_id}",
+            "arn:aws:s3:::elasticbeanstalk-${var.aws_region}-${data.aws_caller_identity.current.account_id}/*"
+         ]
+      },
+      {
+         "Action":[
+                "elasticbeanstalk:CreateApplicationVersion",
+                "elasticbeanstalk:DescribeApplicationVersions",
+                "elasticbeanstalk:DescribeEnvironments",
+                "elasticbeanstalk:DescribeEvents",
+                "elasticbeanstalk:UpdateEnvironment",
+                "autoscaling:DescribeAutoScalingGroups",
+                "autoscaling:DescribeLaunchConfigurations",
+                "autoscaling:DescribeScalingActivities",
+                "autoscaling:ResumeProcesses",
+                "autoscaling:SuspendProcesses",
+                "cloudformation:GetTemplate",
+                "cloudformation:DescribeStackResource",
+                "cloudformation:DescribeStackResources",
+                "cloudformation:DescribeStackEvents",
+                "cloudformation:DescribeStacks",
+                "cloudformation:UpdateStack",
+                "ec2:DescribeInstances",
+                "ec2:DescribeImages",
+                "ec2:DescribeAddresses",
+                "ec2:DescribeSubnets",
+                "ec2:DescribeVpcs",
+                "ec2:DescribeSecurityGroups",
+                "ec2:DescribeKeyPairs",
+                "elasticloadbalancing:DescribeLoadBalancers",
+                "elasticloadbalancing:RegisterInstancesWithLoadBalancer",
+                "rds:DescribeDBInstances",
+                "rds:DescribeOrderableDBInstanceOptions",
+                "sns:ListSubscriptionsByTopic"
+         ],
+         "Resource":"*",
+         "Effect":"Allow"
       }
    ]
 }

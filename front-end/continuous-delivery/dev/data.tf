@@ -4,6 +4,10 @@ data aws_codecommit_repository "codecommit-repository" {
   repository_name = "thyart-web"
 }
 
+data "aws_s3_bucket" "codebuild-bucket" {
+  bucket = "${var.application_name}-codebuild"
+}
+
 data "aws_s3_bucket" "codepipeline-bucket" {
   bucket = "${var.application_name}-codepipeline"
 }

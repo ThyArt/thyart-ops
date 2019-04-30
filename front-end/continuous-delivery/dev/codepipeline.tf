@@ -25,7 +25,7 @@ resource "aws_codepipeline" "dev-codepipeline" {
 
       configuration {
         RepositoryName = "${data.aws_codecommit_repository.codecommit-repository.repository_name}"
-        BranchName     = "dev"
+        BranchName     = "develop"
       }
     }
   }
