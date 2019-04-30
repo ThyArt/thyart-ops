@@ -9,28 +9,18 @@ resource "aws_codebuild_project" "dev-codebuild-project" {
     type         = "LINUX_CONTAINER"
 
     environment_variable {
-      name  = "ACCESS_KEY_ID"
-      value = "${var.codebuild_user_access_key_id}"
-    }
-
-    environment_variable {
-      name  = "SECRET_ACCESS_KEY"
-      value = "${var.codebuild_user_secret_access_key}"
-    }
-
-    environment_variable {
       name  = "API_ENDPOINT"
-      value = "${jsondecode(${data.aws_secretsmanager_secret_version.frontend-dev-secret-version.secret_string})["api-endpoint"]}"
+      value = "${local.backend-connection-variables[api-endpoint]}"
     }
 
     environment_variable {
       name  = "CLIENT_ID"
-      value = "${jsondecode(${data.aws_secretsmanager_secret_version.frontend-dev-secret-version.secret_string})["client-id"]}"
+      value = "${local.backend-connection-variables[client-id]}"
     }
 
     environment_variable {
       name  = "CLIENT_SECRET"
-      value = "${jsondecode(${data.aws_secretsmanager_secret_version.frontend-dev-secret-version.secret_string})["client-secret"]}"
+      value = "${local.backend-connection-variables[client-secret]}"
     }
 
     environment_variable {

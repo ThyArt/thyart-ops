@@ -104,10 +104,4 @@ resource "aws_elastic_beanstalk_environment" "dev-environment" {
     name      = "Availability Zones"
     value     = "Any 2"
   }
-
-  setting {
-    name = ""
-    namespace = "aws:"
-    value = ""
-  }
 }
