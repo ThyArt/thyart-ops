@@ -4,6 +4,4 @@ variable "aws_region" {
 
 variable "application_name" {}
 
-variable "application_image" {
-  image = "kkarczmarczyk/node-yarn:latest"
-}
+variable "codebuild_image_name" {}

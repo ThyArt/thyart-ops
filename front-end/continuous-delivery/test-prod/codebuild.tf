@@ -5,7 +5,7 @@ resource "aws_codebuild_project" "test-codebuild-project" {
 
   "environment" {
     compute_type = "BUILD_GENERAL1_SMALL"
-    image        = "${var.application_image}"
+    image        = "${var.codebuild_image_name}"
     type         = "LINUX_CONTAINER"
 
     environment_variable {
@@ -44,7 +44,7 @@ resource "aws_codebuild_project" "prod-codebuild-project" {
 
   "environment" {
     compute_type = "BUILD_GENERAL1_SMALL"
-    image        = "${var.application_image}"
+    image        = "${var.codebuild_image_name}"
     type         = "LINUX_CONTAINER"
 
     environment_variable {
