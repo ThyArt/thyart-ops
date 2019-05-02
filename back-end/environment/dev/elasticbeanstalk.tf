@@ -9,6 +9,8 @@ resource "aws_elastic_beanstalk_environment" "dev-environment" {
   solution_stack_name = "${data.aws_elastic_beanstalk_solution_stack.dev-solution-stack.name}"
   cname_prefix        = "${var.application_name}-dev"
 
+  depends_on = ["aws_acm_certificate_validation.acm_certificate_validation"]
+
   setting {
     namespace = "aws:ec2:vpc"
     name      = "VPCId"
@@ -145,5 +147,23 @@ resource "aws_elastic_beanstalk_environment" "dev-environment" {
     namespace = "aws:autoscaling:asg"
     name      = "Availability Zones"
     value     = "Any 2"
+  }
+
+  setting {
+    namespace = "aws:elb:listener:443"
+    name      = "ListenerProtocol"
+    value     = "HTTPS"
+  }
+
+  setting {
+    namespace = "aws:elb:listener:443"
+    name      = "InstancePort"
+    value     = "80"
+  }
+
+  setting {
+    namespace = "aws:elb:listener:443"
+    name      = "SSLCertificateId"
+    value     = "${aws_acm_certificate.acm_certificate.arn}"
   }
 }

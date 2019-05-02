@@ -60,3 +60,8 @@ data "aws_subnet" "backend-subnet-private-3" {
 data "aws_secretsmanager_secret" "dev-secret-manager" {
   name = "${var.application_name}-dev-front-end-cfg"
 }
+
+data "aws_route53_zone" "route53_zone" {
+  name         = "${var.route53_zone_name}"
+  private_zone = false
+}
