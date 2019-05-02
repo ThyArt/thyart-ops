@@ -3,5 +3,5 @@ variable "aws_region" {
 }
 
 variable "application_name" {}
-
+variable "backend_name" {}
 variable "codebuild_image_name" {}

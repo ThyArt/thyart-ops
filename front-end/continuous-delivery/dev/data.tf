@@ -13,7 +13,7 @@ data "aws_s3_bucket" "codepipeline-bucket" {
 }
 
 data "aws_secretsmanager_secret" "frontend-dev-secret" {
-  name = "thyart-api-dev-front-end-configuration"
+  name = "${var.backend_name}-dev-front-end-cfg"
 }
 
 data "aws_secretsmanager_secret_version" "frontend-dev-secret-version" {

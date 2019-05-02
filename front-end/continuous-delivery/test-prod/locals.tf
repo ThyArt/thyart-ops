@@ -1,5 +1,6 @@
 locals {
-  backend-connection-variables = "${data.external.json.result}"
+  backend-test-connection-variables = "${data.external.test-json.result}"
+  backend-prod-connection-variables = "${data.external.prod-json.result}"
 }
 
 // For Terraform O.12 release

@@ -39,7 +39,7 @@ resource "aws_codepipeline" "test-prod-codepipeline" {
       owner            = "AWS"
       provider         = "CodeBuild"
       input_artifacts  = ["SourceArtifact"]
-      output_artifacts = ["BuildArtifact"]
+      output_artifacts = ["BuildTestArtifact"]
       version          = "1"
 
       configuration {
@@ -56,7 +56,7 @@ resource "aws_codepipeline" "test-prod-codepipeline" {
       name            = "Deploy"
       owner           = "AWS"
       provider        = "ElasticBeanstalk"
-      input_artifacts = ["BuildArtifact"]
+      input_artifacts = ["BuildTestArtifact"]
       version         = "1"
 
       configuration {
@@ -87,7 +87,7 @@ resource "aws_codepipeline" "test-prod-codepipeline" {
       owner            = "AWS"
       provider         = "CodeBuild"
       input_artifacts  = ["SourceArtifact"]
-      output_artifacts = ["BuildArtifact"]
+      output_artifacts = ["BuildProdArtifact"]
       version          = "1"
 
       configuration {
@@ -104,7 +104,7 @@ resource "aws_codepipeline" "test-prod-codepipeline" {
       name            = "Deploy"
       owner           = "AWS"
       provider        = "ElasticBeanstalk"
-      input_artifacts = ["BuildArtifact"]
+      input_artifacts = ["BuildProdArtifact"]
       version         = "1"
 
       configuration {

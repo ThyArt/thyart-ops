@@ -56,3 +56,7 @@ data "aws_subnet" "backend-subnet-private-3" {
     Name = "${var.application_name}-private-3"
   }
 }
+
+data "aws_secretsmanager_secret" "prod-secret-manager" {
+  name = "${var.application_name}-prod-front-end-cfg"
+}

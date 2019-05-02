@@ -10,17 +10,17 @@ resource "aws_codebuild_project" "test-codebuild-project" {
 
     environment_variable {
       name  = "API_ENDPOINT"
-      value = "${local.backend-connection-variables["api-endpoint"]}"
+      value = "${local.backend-test-connection-variables["api-endpoint"]}"
     }
 
     environment_variable {
       name  = "CLIENT_ID"
-      value = "${local.backend-connection-variables["client-id"]}"
+      value = "${local.backend-test-connection-variables["client-id"]}"
     }
 
     environment_variable {
       name  = "CLIENT_SECRET"
-      value = "${local.backend-connection-variables["client-secret"]}"
+      value = "${local.backend-test-connection-variables["client-secret"]}"
     }
   }
 
@@ -49,17 +49,17 @@ resource "aws_codebuild_project" "prod-codebuild-project" {
 
     environment_variable {
       name  = "API_ENDPOINT"
-      value = "${local.backend-connection-variables["api-endpoint"]}"
+      value = "${local.backend-prod-connection-variables["api-endpoint"]}"
     }
 
     environment_variable {
       name  = "CLIENT_ID"
-      value = "${local.backend-connection-variables["client-id"]}"
+      value = "${local.backend-prod-connection-variables["client-id"]}"
     }
 
     environment_variable {
       name  = "CLIENT_SECRET"
-      value = "${local.backend-connection-variables["client-secret"]}"
+      value = "${local.backend-prod-connection-variables["client-secret"]}"
     }
   }
 
