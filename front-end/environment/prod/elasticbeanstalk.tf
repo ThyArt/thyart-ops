@@ -30,7 +30,7 @@ resource "aws_elastic_beanstalk_environment" "prod-environment" {
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "IamInstanceProfile"
-    value     = "${aws_iam_instance_profile.frontend-prod-ec2-instance-profile.name}"
+    value     = "${aws_iam_instance_profile.prod-ec2-instance-profile.name}"
   }
 
   setting {
@@ -54,7 +54,7 @@ resource "aws_elastic_beanstalk_environment" "prod-environment" {
   setting {
     namespace = "aws:elasticbeanstalk:environment"
     name      = "ServiceRole"
-    value     = "${aws_iam_role.frontend-prod-elasticbeanstalk-service-role.name}"
+    value     = "${aws_iam_role.prod-elasticbeanstalk-service-role.name}"
   }
 
   setting {
