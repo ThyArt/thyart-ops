@@ -9,6 +9,8 @@ resource "aws_elastic_beanstalk_environment" "test-environment" {
   solution_stack_name = "${data.aws_elastic_beanstalk_solution_stack.test-solution-stack.name}"
   cname_prefix        = "${var.application_name}-test"
 
+  depends_on = ["aws_acm_certificate_validation.acm_certificate_validation"]
+
   setting {
     namespace = "aws:ec2:vpc"
     name      = "VPCId"
@@ -67,12 +69,6 @@ resource "aws_elastic_beanstalk_environment" "test-environment" {
     namespace = "aws:ec2:vpc"
     name      = "ELBSubnets"
     value     = "${data.aws_subnet.backend-subnet-public-1.id},${data.aws_subnet.backend-subnet-public-2.id},${data.aws_subnet.backend-subnet-public-3.id}"
-  }
-
-  setting {
-    namespace = "aws:elb:loadbalancer"
-    name      = "CrossZone"
-    value     = "true"
   }
 
   setting {
@@ -145,5 +141,23 @@ resource "aws_elastic_beanstalk_environment" "test-environment" {
     namespace = "aws:autoscaling:asg"
     name      = "Availability Zones"
     value     = "Any 2"
+  }
+
+  setting {
+    namespace = "aws:elbv2:listener:443"
+    name      = "Protocol"
+    value     = "HTTPS"
+  }
+
+  setting {
+    namespace = "aws:elbv2:listener:443"
+    name      = "SSLCertificateArns"
+    value     = "${aws_acm_certificate.acm_certificate.arn}"
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:environment"
+    name      = "LoadBalancerType"
+    value     = "application"
   }
 }
