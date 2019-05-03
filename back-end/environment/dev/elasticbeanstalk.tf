@@ -72,12 +72,6 @@ resource "aws_elastic_beanstalk_environment" "dev-environment" {
   }
 
   setting {
-    namespace = "aws:elb:loadbalancer"
-    name      = "CrossZone"
-    value     = "true"
-  }
-
-  setting {
     namespace = "aws:elasticbeanstalk:command"
     name      = "BatchSize"
     value     = "30"
@@ -150,20 +144,20 @@ resource "aws_elastic_beanstalk_environment" "dev-environment" {
   }
 
   setting {
-    namespace = "aws:elb:listener:443"
-    name      = "ListenerProtocol"
+    namespace = "aws:elbv2:listener:443"
+    name      = "Protocol"
     value     = "HTTPS"
   }
 
   setting {
-    namespace = "aws:elb:listener:443"
-    name      = "InstancePort"
-    value     = "80"
+    namespace = "aws:elbv2:listener:443"
+    name      = "SSLCertificateArns"
+    value     = "${aws_acm_certificate.acm_certificate.arn}"
   }
 
   setting {
-    namespace = "aws:elb:listener:443"
-    name      = "SSLCertificateId"
-    value     = "${aws_acm_certificate.acm_certificate.arn}"
+    namespace = "aws:elasticbeanstalk:environment"
+    name      = "LoadBalancerType"
+    value     = "application"
   }
 }
