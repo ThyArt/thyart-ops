@@ -195,6 +195,8 @@ resource "aws_iam_role_policy" "dev-codepipeline-role-policy" {
                 "ec2:DescribeKeyPairs",
                 "elasticloadbalancing:DescribeLoadBalancers",
                 "elasticloadbalancing:RegisterInstancesWithLoadBalancer",
+                "elasticloadbalancing:DescribeTargetGroups",
+                "elasticloadbalancing:RegisterTargets",
                 "rds:DescribeDBInstances",
                 "rds:DescribeOrderableDBInstanceOptions",
                 "sns:ListSubscriptionsByTopic"
