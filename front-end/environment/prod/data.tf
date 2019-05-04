@@ -56,3 +56,13 @@ data "aws_subnet" "frontend-subnet-private-3" {
     Name = "${var.application_name}-private-3"
   }
 }
+
+data "aws_route53_zone" "route53_zone" {
+  name         = "${var.route53_zone_name}"
+  private_zone = false
+}
+
+data "aws_lb_listener" "http-listener" {
+  load_balancer_arn = "${aws_elastic_beanstalk_environment.prod-environment.load_balancers[0]}"
+  port              = 80
+}

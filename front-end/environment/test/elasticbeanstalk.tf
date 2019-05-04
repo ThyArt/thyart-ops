@@ -1,13 +1,10 @@
-resource "random_string" "test-passport-client-secret" {
-  length  = 40
-  special = false
-}
-
 resource "aws_elastic_beanstalk_environment" "test-environment" {
   name                = "${var.application_name}-test"
   application         = "${var.application_name}"
   solution_stack_name = "${data.aws_elastic_beanstalk_solution_stack.test-solution-stack.name}"
   cname_prefix        = "${var.application_name}-test"
+
+  depends_on = ["aws_acm_certificate_validation.acm_certificate_validation"]
 
   setting {
     namespace = "aws:ec2:vpc"
@@ -42,7 +39,7 @@ resource "aws_elastic_beanstalk_environment" "test-environment" {
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "EC2KeyName"
-    value     = "${var.application_name}-dev"
+    value     = "${var.application_name}-test"
   }
 
   setting {
@@ -67,12 +64,6 @@ resource "aws_elastic_beanstalk_environment" "test-environment" {
     namespace = "aws:ec2:vpc"
     name      = "ELBSubnets"
     value     = "${data.aws_subnet.frontend-subnet-public-1.id},${data.aws_subnet.frontend-subnet-public-2.id},${data.aws_subnet.frontend-subnet-public-3.id}"
-  }
-
-  setting {
-    namespace = "aws:elb:loadbalancer"
-    name      = "CrossZone"
-    value     = "true"
   }
 
   setting {
@@ -103,5 +94,23 @@ resource "aws_elastic_beanstalk_environment" "test-environment" {
     namespace = "aws:autoscaling:asg"
     name      = "Availability Zones"
     value     = "Any 2"
+  }
+
+  setting {
+    namespace = "aws:elbv2:listener:443"
+    name      = "Protocol"
+    value     = "HTTPS"
+  }
+
+  setting {
+    namespace = "aws:elbv2:listener:443"
+    name      = "SSLCertificateArns"
+    value     = "${aws_acm_certificate.acm_certificate.arn}"
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:environment"
+    name      = "LoadBalancerType"
+    value     = "application"
   }
 }

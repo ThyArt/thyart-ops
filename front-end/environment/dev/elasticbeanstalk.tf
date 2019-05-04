@@ -1,13 +1,10 @@
-resource "random_string" "dev-passport-client-secret" {
-  length  = 40
-  special = false
-}
-
 resource "aws_elastic_beanstalk_environment" "dev-environment" {
   name                = "${var.application_name}-dev"
   application         = "${var.application_name}"
   solution_stack_name = "${data.aws_elastic_beanstalk_solution_stack.dev-solution-stack.name}"
   cname_prefix        = "${var.application_name}-dev"
+
+  depends_on = ["aws_acm_certificate_validation.acm_certificate_validation"]
 
   setting {
     namespace = "aws:ec2:vpc"
@@ -70,12 +67,6 @@ resource "aws_elastic_beanstalk_environment" "dev-environment" {
   }
 
   setting {
-    namespace = "aws:elb:loadbalancer"
-    name      = "CrossZone"
-    value     = "true"
-  }
-
-  setting {
     namespace = "aws:elasticbeanstalk:command"
     name      = "BatchSize"
     value     = "30"
@@ -103,5 +94,23 @@ resource "aws_elastic_beanstalk_environment" "dev-environment" {
     namespace = "aws:autoscaling:asg"
     name      = "Availability Zones"
     value     = "Any 2"
+  }
+
+  setting {
+    namespace = "aws:elbv2:listener:443"
+    name      = "Protocol"
+    value     = "HTTPS"
+  }
+
+  setting {
+    namespace = "aws:elbv2:listener:443"
+    name      = "SSLCertificateArns"
+    value     = "${aws_acm_certificate.acm_certificate.arn}"
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:environment"
+    name      = "LoadBalancerType"
+    value     = "application"
   }
 }
