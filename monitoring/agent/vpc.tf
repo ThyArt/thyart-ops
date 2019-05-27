@@ -5,7 +5,7 @@ resource "aws_vpc" "monitoring-agent-vpc" {
   enable_dns_hostnames = "true"
   enable_classiclink   = false
 
-  tags {
+  tags = {
     Name = "monitoring-agent"
   }
 }
@@ -13,7 +13,7 @@ resource "aws_vpc" "monitoring-agent-vpc" {
 resource "aws_internet_gateway" "monitoring-agent-gateway" {
   vpc_id = "${aws_vpc.monitoring-agent-vpc.id}"
 
-  tags {
+  tags = {
     Name = "monitoring-agent"
   }
 }
@@ -26,7 +26,7 @@ resource "aws_route_table" "monitoring-agent-route-table-public" {
     gateway_id = "${aws_internet_gateway.monitoring-agent-gateway.id}"
   }
 
-  tags {
+  tags = {
     Name = "monitoring-agent-public-1"
   }
 }
@@ -37,7 +37,7 @@ resource "aws_subnet" "monitoring-agent-subnet-public-1" {
   map_public_ip_on_launch = "true"
   availability_zone       = "${var.aws_region}a"
 
-  tags {
+  tags = {
     Name = "monitoring-agent-public-1"
   }
 }

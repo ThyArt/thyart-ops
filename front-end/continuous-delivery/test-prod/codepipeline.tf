@@ -23,7 +23,7 @@ resource "aws_codepipeline" "test-prod-codepipeline" {
       version          = "1"
       output_artifacts = ["SourceArtifact"]
 
-      configuration {
+      configuration = {
         RepositoryName = "${data.aws_codecommit_repository.codecommit-repository.repository_name}"
         BranchName     = "master"
       }
@@ -42,7 +42,7 @@ resource "aws_codepipeline" "test-prod-codepipeline" {
       output_artifacts = ["BuildTestArtifact"]
       version          = "1"
 
-      configuration {
+      configuration = {
         ProjectName = "${aws_codebuild_project.test-codebuild-project.name}"
       }
     }
@@ -59,7 +59,7 @@ resource "aws_codepipeline" "test-prod-codepipeline" {
       input_artifacts = ["BuildTestArtifact"]
       version         = "1"
 
-      configuration {
+      configuration = {
         ApplicationName = "${var.application_name}"
         EnvironmentName = "${var.application_name}-test"
       }
@@ -69,7 +69,7 @@ resource "aws_codepipeline" "test-prod-codepipeline" {
   stage {
     name = "Approval"
 
-    "action" {
+    action {
       name     = "Approval"
       category = "Approval"
       owner    = "AWS"
@@ -90,7 +90,7 @@ resource "aws_codepipeline" "test-prod-codepipeline" {
       output_artifacts = ["BuildProdArtifact"]
       version          = "1"
 
-      configuration {
+      configuration = {
         ProjectName = "${aws_codebuild_project.prod-codebuild-project.name}"
       }
     }
@@ -107,7 +107,7 @@ resource "aws_codepipeline" "test-prod-codepipeline" {
       input_artifacts = ["BuildProdArtifact"]
       version         = "1"
 
-      configuration {
+      configuration = {
         ApplicationName = "${var.application_name}"
         EnvironmentName = "${var.application_name}-prod"
       }

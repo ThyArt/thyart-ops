@@ -10,7 +10,7 @@ resource "aws_security_group" "dev-environment-security-group" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags {
+  tags = {
     Name = "${var.application_name}-dev"
   }
 }
@@ -20,7 +20,7 @@ resource "aws_security_group" "dev-rds-security-group" {
   name        = "rds-${var.application_name}-dev"
   description = "Allow inbound mysql traffic"
 
-  tags {
+  tags = {
     Name = "rds-${var.application_name}-dev"
   }
 }

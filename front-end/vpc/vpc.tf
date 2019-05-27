@@ -5,7 +5,7 @@ resource "aws_vpc" "frontend-vpc" {
   enable_dns_hostnames = "true"
   enable_classiclink   = "false"
 
-  tags {
+  tags = {
     Name = "${var.application_name}"
   }
 }
@@ -13,7 +13,7 @@ resource "aws_vpc" "frontend-vpc" {
 resource "aws_internet_gateway" "frontend-gateway" {
   vpc_id = "${aws_vpc.frontend-vpc.id}"
 
-  tags {
+  tags = {
     Name = "${var.application_name}"
   }
 }
@@ -26,7 +26,7 @@ resource "aws_route_table" "frontend-route-table-public" {
     gateway_id = "${aws_internet_gateway.frontend-gateway.id}"
   }
 
-  tags {
+  tags = {
     Name = "${var.application_name}-public-1"
   }
 }
@@ -37,7 +37,7 @@ resource "aws_subnet" "frontend-subnet-public-1" {
   map_public_ip_on_launch = "true"
   availability_zone       = "${var.aws_region}a"
 
-  tags {
+  tags = {
     Name = "${var.application_name}-public-1"
   }
 }
@@ -48,7 +48,7 @@ resource "aws_subnet" "frontend-subnet-public-2" {
   map_public_ip_on_launch = "true"
   availability_zone       = "${var.aws_region}b"
 
-  tags {
+  tags = {
     Name = "${var.application_name}-public-2"
   }
 }
@@ -59,7 +59,7 @@ resource "aws_subnet" "frontend-subnet-public-3" {
   map_public_ip_on_launch = "true"
   availability_zone       = "${var.aws_region}c"
 
-  tags {
+  tags = {
     Name = "${var.application_name}-public-3"
   }
 }
@@ -70,7 +70,7 @@ resource "aws_subnet" "frontend-subnet-private-1" {
   map_public_ip_on_launch = "false"
   availability_zone       = "${var.aws_region}a"
 
-  tags {
+  tags = {
     Name = "${var.application_name}-private-1"
   }
 }
@@ -81,7 +81,7 @@ resource "aws_subnet" "frontend-subnet-private-2" {
   map_public_ip_on_launch = "false"
   availability_zone       = "${var.aws_region}b"
 
-  tags {
+  tags = {
     Name = "${var.application_name}-private-2"
   }
 }
@@ -92,7 +92,7 @@ resource "aws_subnet" "frontend-subnet-private-3" {
   map_public_ip_on_launch = "false"
   availability_zone       = "${var.aws_region}c"
 
-  tags {
+  tags = {
     Name = "${var.application_name}-private-3"
   }
 }
@@ -120,7 +120,7 @@ resource "aws_route_table" "frontend-route-table-private" {
     nat_gateway_id = "${aws_nat_gateway.frontend-nat-gateway.id}"
   }
 
-  tags {
+  tags = {
     Name = "${var.application_name}-private-1"
   }
 }

@@ -5,7 +5,7 @@ resource "aws_vpc" "codebuild-vpc" {
   enable_dns_hostnames = "true"
   enable_classiclink   = "false"
 
-  tags {
+  tags = {
     Name = "codebuild"
   }
 }
@@ -13,7 +13,7 @@ resource "aws_vpc" "codebuild-vpc" {
 resource "aws_internet_gateway" "codebuild-gateway" {
   vpc_id = "${aws_vpc.codebuild-vpc.id}"
 
-  tags {
+  tags = {
     Name = "codebuild"
   }
 }
@@ -26,7 +26,7 @@ resource "aws_route_table" "codebuild-route-table-public" {
     gateway_id = "${aws_internet_gateway.codebuild-gateway.id}"
   }
 
-  tags {
+  tags = {
     Name = "codebuild-public-1"
   }
 }
@@ -37,7 +37,7 @@ resource "aws_subnet" "codebuild-subnet-public-1" {
   map_public_ip_on_launch = "true"
   availability_zone       = "${var.aws_region}a"
 
-  tags {
+  tags = {
     Name = "codebuild-public-1"
   }
 }
@@ -48,7 +48,7 @@ resource "aws_subnet" "codebuild-subnet-public-2" {
   map_public_ip_on_launch = "true"
   availability_zone       = "${var.aws_region}b"
 
-  tags {
+  tags = {
     Name = "codebuild-public-2"
   }
 }
@@ -59,7 +59,7 @@ resource "aws_subnet" "codebuild-subnet-public-3" {
   map_public_ip_on_launch = "true"
   availability_zone       = "${var.aws_region}c"
 
-  tags {
+  tags = {
     Name = "codebuild-public-3"
   }
 }
@@ -70,7 +70,7 @@ resource "aws_subnet" "codebuild-subnet-private-1" {
   map_public_ip_on_launch = "false"
   availability_zone       = "${var.aws_region}a"
 
-  tags {
+  tags = {
     Name = "codebuild-private-1"
   }
 }
@@ -81,7 +81,7 @@ resource "aws_subnet" "codebuild-subnet-private-2" {
   map_public_ip_on_launch = "false"
   availability_zone       = "${var.aws_region}b"
 
-  tags {
+  tags = {
     Name = "codebuild-private-2"
   }
 }
@@ -92,7 +92,7 @@ resource "aws_subnet" "codebuild-subnet-private-3" {
   map_public_ip_on_launch = "false"
   availability_zone       = "${var.aws_region}c"
 
-  tags {
+  tags = {
     Name = "codebuild-private-3"
   }
 }
@@ -120,7 +120,7 @@ resource "aws_route_table" "codebuild-route-table-private" {
     nat_gateway_id = "${aws_nat_gateway.codebuild-nat-gateway.id}"
   }
 
-  tags {
+  tags = {
     Name = "codebuild-private-1"
   }
 }

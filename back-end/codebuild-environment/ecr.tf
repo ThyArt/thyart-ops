@@ -4,7 +4,7 @@ resource "aws_ecr_repository" "codebuild-repository" {
   tags = {
     Project = "${var.application_name}"
     Team    = "${var.team_name}"
-    Version = "${var.version}"
+    Version = "${var.application_version}"
   }
 }
 

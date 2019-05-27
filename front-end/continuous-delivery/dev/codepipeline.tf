@@ -23,7 +23,7 @@ resource "aws_codepipeline" "dev-codepipeline" {
       version          = "1"
       output_artifacts = ["SourceArtifact"]
 
-      configuration {
+      configuration = {
         RepositoryName = "${data.aws_codecommit_repository.codecommit-repository.repository_name}"
         BranchName     = "develop"
       }
@@ -42,7 +42,7 @@ resource "aws_codepipeline" "dev-codepipeline" {
       output_artifacts = ["BuildArtifact"]
       version          = "1"
 
-      configuration {
+      configuration = {
         ProjectName = "${aws_codebuild_project.dev-codebuild-project.name}"
       }
     }
@@ -59,7 +59,7 @@ resource "aws_codepipeline" "dev-codepipeline" {
       input_artifacts = ["BuildArtifact"]
       version         = "1"
 
-      configuration {
+      configuration = {
         ApplicationName = "${var.application_name}"
         EnvironmentName = "${var.application_name}-dev"
       }

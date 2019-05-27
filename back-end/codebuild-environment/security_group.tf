@@ -3,9 +3,8 @@ resource "aws_security_group" "codebuild-rds-security-group" {
   name        = "rds-codebuild"
   description = "Allow inbound mysql traffic"
 
-  tags {
+  tags = {
     Name = "rds-codebuild"
-    Name = "rds"
   }
 }
 
@@ -26,9 +25,8 @@ resource "aws_default_security_group" "default" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags {
-    Name = "rds-codebuild"
-    Name = "default"
+  tags = {
+    Name = "rds-codebuild-default"
   }
 }
 

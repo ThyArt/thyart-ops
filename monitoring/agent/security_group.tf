@@ -10,7 +10,7 @@ resource "aws_security_group" "monitoring-agent-environment-security-group" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags {
+  tags = {
     Name = "monitoring-agent"
   }
 }
@@ -32,7 +32,7 @@ resource "aws_default_security_group" "default" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  tags {
+  tags = {
     Name = "monitoring-agent"
   }
 }

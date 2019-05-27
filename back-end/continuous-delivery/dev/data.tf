@@ -17,50 +17,49 @@ data "aws_codecommit_repository" "codecommit-repository" {
 }
 
 data "aws_vpc" "codebuild-vpc" {
-  tags {
+  tags = {
     Name = "codebuild"
   }
 }
 
 data "aws_subnet" "codebuild-subnet-public-1" {
-  tags {
+  tags = {
     Name = "codebuild-public-1"
   }
 }
 
 data "aws_subnet" "codebuild-subnet-public-2" {
-  tags {
+  tags = {
     Name = "codebuild-public-1"
   }
 }
 
 data "aws_subnet" "codebuild-subnet-public-3" {
-  tags {
+  tags = {
     Name = "codebuild-public-1"
   }
 }
 
 data "aws_subnet" "codebuild-subnet-private-1" {
-  tags {
+  tags = {
     Name = "codebuild-private-1"
   }
 }
 
 data "aws_subnet" "codebuild-subnet-private-2" {
-  tags {
+  tags = {
     Name = "codebuild-private-2"
   }
 }
 
 data "aws_subnet" "codebuild-subnet-private-3" {
-  tags {
+  tags = {
     Name = "codebuild-private-3"
   }
 }
 
 data "aws_security_groups" "codebuild-security-groups" {
-  tags {
-    Name = "rds-codebuild"
-    Name = "default"
+  tags = {
+    Name = "rds-codebuild-default"
   }
 }

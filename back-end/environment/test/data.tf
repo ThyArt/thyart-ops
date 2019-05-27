@@ -4,7 +4,7 @@ data "aws_elastic_beanstalk_solution_stack" "test-solution-stack" {
 }
 
 data "aws_vpc" "backend-vpc" {
-  tags {
+  tags = {
     Name = "${var.application_name}"
   }
 }
@@ -12,7 +12,7 @@ data "aws_vpc" "backend-vpc" {
 data "aws_subnet" "backend-subnet-public-1" {
   vpc_id = "${data.aws_vpc.backend-vpc.id}"
 
-  tags {
+  tags = {
     Name = "${var.application_name}-public-1"
   }
 }
@@ -20,7 +20,7 @@ data "aws_subnet" "backend-subnet-public-1" {
 data "aws_subnet" "backend-subnet-public-2" {
   vpc_id = "${data.aws_vpc.backend-vpc.id}"
 
-  tags {
+  tags = {
     Name = "${var.application_name}-public-2"
   }
 }
@@ -28,7 +28,7 @@ data "aws_subnet" "backend-subnet-public-2" {
 data "aws_subnet" "backend-subnet-public-3" {
   vpc_id = "${data.aws_vpc.backend-vpc.id}"
 
-  tags {
+  tags = {
     Name = "${var.application_name}-public-3"
   }
 }
@@ -36,7 +36,7 @@ data "aws_subnet" "backend-subnet-public-3" {
 data "aws_subnet" "backend-subnet-private-1" {
   vpc_id = "${data.aws_vpc.backend-vpc.id}"
 
-  tags {
+  tags = {
     Name = "${var.application_name}-private-1"
   }
 }
@@ -44,7 +44,7 @@ data "aws_subnet" "backend-subnet-private-1" {
 data "aws_subnet" "backend-subnet-private-2" {
   vpc_id = "${data.aws_vpc.backend-vpc.id}"
 
-  tags {
+  tags = {
     Name = "${var.application_name}-private-2"
   }
 }
@@ -52,7 +52,7 @@ data "aws_subnet" "backend-subnet-private-2" {
 data "aws_subnet" "backend-subnet-private-3" {
   vpc_id = "${data.aws_vpc.backend-vpc.id}"
 
-  tags {
+  tags = {
     Name = "${var.application_name}-private-3"
   }
 }

@@ -1,33 +1,33 @@
 resource "aws_codebuild_project" "dev-codebuild-project" {
-  "artifacts" {
+  artifacts {
     type = "CODEPIPELINE"
   }
 
-  "environment" {
+  environment {
     compute_type = "BUILD_GENERAL1_SMALL"
     image        = "${var.codebuild_image_name}"
     type         = "LINUX_CONTAINER"
 
     environment_variable {
       name  = "API_ENDPOINT"
-      value = "${local.backend-connection-variables["api-endpoint"]}"
+      value = "${local.backend-connection-json["api-endpoint"]}"
     }
 
     environment_variable {
       name  = "CLIENT_ID"
-      value = "${local.backend-connection-variables["client-id"]}"
+      value = "${local.backend-connection-json["client-id"]}"
     }
 
     environment_variable {
       name  = "CLIENT_SECRET"
-      value = "${local.backend-connection-variables["client-secret"]}"
+      value = "${local.backend-connection-json["client-secret"]}"
     }
   }
 
   name         = "${var.application_name}-dev"
   service_role = "${aws_iam_role.dev-codebuild-role.arn}"
 
-  "source" {
+  source {
     type = "CODEPIPELINE"
   }
 

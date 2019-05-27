@@ -27,11 +27,3 @@ data "aws_secretsmanager_secret_version" "frontend-test-secret-version" {
 data "aws_secretsmanager_secret_version" "frontend-prod-secret-version" {
   secret_id = "${data.aws_secretsmanager_secret.frontend-prod-secret.id}"
 }
-
-data "external" "test-json" {
-  program = ["echo", "${data.aws_secretsmanager_secret_version.frontend-test-secret-version.secret_string}"]
-}
-
-data "external" "prod-json" {
-  program = ["echo", "${data.aws_secretsmanager_secret_version.frontend-prod-secret-version.secret_string}"]
-}

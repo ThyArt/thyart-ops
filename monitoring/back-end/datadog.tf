@@ -12,11 +12,11 @@ EOM
 }
 
 resource "datadog_monitor" "back-end_cpu_usage" {
-  name           = "CPU usage high"
-  query          = "avg(last_5m):${var.back-end_cpu_usage["query"]}{*} by ${var.back-end_trigger_by} > ${var.back-end_cpu_usage["threshold"]}"
-  type           = "query alert"
+  name = "CPU usage high"
+  query = "avg(last_5m):${var.back-end_cpu_usage["query"]}{*} by ${var.back-end_trigger_by} > ${var.back-end_cpu_usage["threshold"]}"
+  type = "query alert"
   notify_no_data = true
-  include_tags   = true
+  include_tags = true
 
   message = <<EOM
 CPU usage high: {{value}}

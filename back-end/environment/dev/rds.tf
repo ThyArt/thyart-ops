@@ -22,7 +22,7 @@ resource "aws_db_instance" "dev-rds-database" {
   skip_final_snapshot     = true
   backup_retention_period = 30
 
-  tags {
+  tags = {
     Name = "rds-${var.application_name}-dev"
   }
 }
