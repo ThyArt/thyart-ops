@@ -192,3 +192,47 @@ resource "aws_iam_role_policy" "test-elasticbeanstalk-role-policy" {
 }
 EOF
 }
+
+resource "aws_iam_user" "test-user" {
+  name = "${var.application_name}-test"
+}
+
+resource "aws_iam_access_key" "test-user-access-key" {
+  user = "${aws_iam_user.test-user.name}"
+}
+
+resource "aws_iam_user_policy" "test-user-policy" {
+  name = "${var.application_name}-test-user-policy"
+  user = "${aws_iam_user.test-user.name}"
+
+  policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket",
+                "s3:ListAllMyBuckets",
+                "s3:GetBucketLocation"
+            ],
+            "Resource": [
+                "${aws_s3_bucket.test-image-bucket.arn}"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject",
+                "s3:PutObjectAcl",
+                "s3:GetObject",
+                "s3:DeleteObject"
+            ],
+            "Resource": [
+                "${aws_s3_bucket.test-image-bucket.arn}/*"
+            ]
+        }
+    ]
+}
+EOF
+}

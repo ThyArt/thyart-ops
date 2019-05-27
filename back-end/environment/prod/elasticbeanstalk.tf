@@ -127,6 +127,30 @@ resource "aws_elastic_beanstalk_environment" "prod-environment" {
 
   setting {
     namespace = "aws:elasticbeanstalk:application:environment"
+    name      = "AWS_ACCESS_KEY_ID"
+    value     = "${aws_iam_access_key.prod-user-access-key.id}"
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
+    name      = "AWS_SECRET_ACCESS_KEY"
+    value     = "${aws_iam_access_key.prod-user-access-key.secret}"
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
+    name      = "AWS_DEFAULT_REGION"
+    value     = "${var.aws_region}"
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
+    name      = "AWS_BUCKET"
+    value     = "${aws_s3_bucket.prod-image-bucket.bucket}"
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
     name      = "PASSPORT_CLIENT_SECRET"
     value     = "${random_string.prod-passport-client-secret.result}"
   }
