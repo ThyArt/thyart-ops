@@ -192,3 +192,47 @@ resource "aws_iam_role_policy" "prod-elasticbeanstalk-role-policy" {
 }
 EOF
 }
+
+resource "aws_iam_user" "prod-user" {
+  name = "${var.application_name}-prod"
+}
+
+resource "aws_iam_access_key" "prod-user-access-key" {
+  user = "${aws_iam_user.prod-user.name}"
+}
+
+resource "aws_iam_user_policy" "prod-user-policy" {
+  name = "${var.application_name}-prod-user-policy"
+  user = "${aws_iam_user.prod-user.name}"
+
+  policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket",
+                "s3:ListAllMyBuckets",
+                "s3:GetBucketLocation"
+            ],
+            "Resource": [
+                "${aws_s3_bucket.prod-image-bucket.arn}"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:PutObject",
+                "s3:PutObjectAcl",
+                "s3:GetObject",
+                "s3:DeleteObject"
+            ],
+            "Resource": [
+                "${aws_s3_bucket.prod-image-bucket.arn}/*"
+            ]
+        }
+    ]
+}
+EOF
+}
