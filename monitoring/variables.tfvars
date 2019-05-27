@@ -1,2 +1,5 @@
 aws_region                      = "eu-west-1"
 monitoring_agent_key_pair_name  = "monitoring-agent"
+datadog_api_key = "8a31dffb6b1b2d0a192a847aceab6172"
+datadog_app_key = "2798dd2333eaa403772b7c19732a931593227bae"
+datadog_aws_integration_external_id = "a08d666e51d24915a947b70662182379"
