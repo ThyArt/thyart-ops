@@ -1,20 +1,20 @@
 /* acknoledgement */
-variable "should_create_organization" {
+variable "organization" {
   type        = "string"
   description = "True if organization should be created, false otherwise"
   default     = true
 }
 
-variable "should_create_back_end_application" {
+variable "back_end_application" {
   type        = "string"
   description = "True if back-end application should be created, false otherwise"
-  default     = true
+  default     = false
 }
 
-variable "should_create_front_end_application" {
+variable "front_end_application" {
   type        = "string"
   description = "True if front-end application should be created, false otherwise"
-  default     = true
+  default     = false
 }
 
 /* Providers */

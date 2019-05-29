@@ -16,11 +16,11 @@ resource "aws_eip" "nat" {
   vpc   = true
 }
 
-resource "aws_nat_gateway" "nat-gateway" {
+resource "aws_nat_gateway" "nat_gateway" {
   count = "${tonumber(replace(replace(var.should_be_created, false, 0), true, 1))}"
 
   allocation_id = "${aws_eip.nat.0.id}"
-  subnet_id     = "${aws_subnet.subnets-public.0.id}"
+  subnet_id     = "${aws_subnet.subnets_public.0.id}"
   depends_on    = ["aws_internet_gateway.gateway"]
 }
 
@@ -33,7 +33,7 @@ resource "aws_internet_gateway" "gateway" {
   }
 }
 
-resource "aws_route_table" "route-table-public" {
+resource "aws_route_table" "route_table_public" {
   count  = "${tonumber(replace(replace(var.should_be_created, false, 0), true, 1))}"
   vpc_id = "${aws_vpc.vpc.0.id}"
 
@@ -48,13 +48,13 @@ resource "aws_route_table" "route-table-public" {
 }
 
 
-resource "aws_route_table" "route-table-private" {
+resource "aws_route_table" "route_table_private" {
   count  = "${tonumber(replace(replace(var.should_be_created, false, 0), true, 1))}"
   vpc_id = "${aws_vpc.vpc.0.id}"
 
   route {
     cidr_block     = "0.0.0.0/0"
-    nat_gateway_id = "${aws_nat_gateway.nat-gateway.0.id}"
+    nat_gateway_id = "${aws_nat_gateway.nat_gateway.0.id}"
   }
 
   tags = {
@@ -63,7 +63,7 @@ resource "aws_route_table" "route-table-private" {
 }
 
 
-resource "aws_subnet" "subnets-public" {
+resource "aws_subnet" "subnets_public" {
   count                   = "${length(data.aws_availability_zone.availability_zones) * tonumber(replace(replace(var.should_be_created, false, 0), true, 1))}"
   vpc_id                  = "${aws_vpc.vpc.0.id}"
   cidr_block              = "${cidrsubnet(aws_vpc.vpc.0.cidr_block, 4, count.index + 1)}"
@@ -75,7 +75,7 @@ resource "aws_subnet" "subnets-public" {
   }
 }
 
-resource "aws_subnet" "subnets-private" {
+resource "aws_subnet" "subnets_private" {
   count                   = "${length(data.aws_availability_zone.availability_zones) * tonumber(replace(replace(var.should_be_created, false, 0), true, 1))}"
   vpc_id                  = "${aws_vpc.vpc.0.id}"
   cidr_block              = "${cidrsubnet(aws_vpc.vpc.0.cidr_block, 4, count.index + 1 + length(data.aws_availability_zone.availability_zones))}"
@@ -87,14 +87,14 @@ resource "aws_subnet" "subnets-private" {
   }
 }
 
-resource "aws_route_table_association" "route-table-associations-public" {
+resource "aws_route_table_association" "route_table_associations_public" {
   count          = "${length(data.aws_availability_zone.availability_zones) * tonumber(replace(replace(var.should_be_created, false, 0), true, 1))}"
-  subnet_id      = "${aws_subnet.subnets-public[count.index].id}"
-  route_table_id = "${aws_route_table.route-table-public.0.id}"
+  subnet_id      = "${aws_subnet.subnets_public[count.index].id}"
+  route_table_id = "${aws_route_table.route_table_public.0.id}"
 }
 
-resource "aws_route_table_association" "route-table-associations-private" {
+resource "aws_route_table_association" "route_table_associations_private" {
   count          = "${length(data.aws_availability_zone.availability_zones) * tonumber(replace(replace(var.should_be_created, false, 0), true, 1))}"
-  subnet_id      = "${aws_subnet.subnets-private[count.index].id}"
-  route_table_id = "${aws_route_table.route-table-private.0.id}"
+  subnet_id      = "${aws_subnet.subnets_private[count.index].id}"
+  route_table_id = "${aws_route_table.route_table_private.0.id}"
 }
