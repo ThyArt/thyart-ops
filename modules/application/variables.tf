@@ -1,6 +1,6 @@
 variable "application_name" {
   type        = "string"
-  description = "The name of the ElasticBeanstalk application"
+  description = "The ElasticBeanstalk application name"
 }
 
 variable "aws_region" {

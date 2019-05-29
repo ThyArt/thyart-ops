@@ -17,6 +17,18 @@ variable "front_end_application" {
   default     = false
 }
 
+variable "front_end_staging" {
+  type        = "string"
+  description = "True if front-end staging should be created, false otherwise"
+  default     = false
+}
+
+variable "front_end_production" {
+  type        = "string"
+  description = "True if front-end production should be created, false otherwise"
+  default     = false
+}
+
 /* Providers */
 variable "github_token" {
   type        = "string"
@@ -33,6 +45,12 @@ variable "aws_region" {
   type        = "string"
   description = "The default AWS region used for deployment"
   default     = "eu-west-1"
+}
+
+variable "route53_zone_name" {
+  type        = "string"
+  description = "The AWS Route53 zone name used to access all environments"
+  default     = "thyart.fr"
 }
 
 variable "aws_availability_zones" {
