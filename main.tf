@@ -1,4 +1,4 @@
-/* GitHub organization resources */
+/* GitHub resources */
 resource "github_membership" "members" {
   count    = "${length(data.github_user.users) * tonumber(replace(replace(var.should_create_organization, false, 0), true, 1))}"
   username = "${element(data.github_user.users, count.index).username}"
@@ -47,4 +47,21 @@ module "repository_ops" {
   repository_name    = "${var.ops_repository}"
   protected_branches = ["master"]
   should_be_created  = "${var.should_create_organization}"
+}
+
+/* AWS resources */
+module "application_backend" {
+  source                 = "./modules/application"
+  application_name       = "${var.back_end_application_name}"
+  aws_availability_zones = "${var.aws_availability_zones}"
+  aws_region             = "${var.aws_region}"
+  should_be_created      = "${var.should_create_back_end_application}"
+}
+
+module "application_frontend" {
+  source                 = "./modules/application"
+  application_name       = "${var.front_end_application_name}"
+  aws_availability_zones = "${var.aws_availability_zones}"
+  aws_region             = "${var.aws_region}"
+  should_be_created      = "${var.should_create_front_end_application}"
 }

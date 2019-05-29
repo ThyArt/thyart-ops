@@ -5,6 +5,18 @@ variable "should_create_organization" {
   default     = true
 }
 
+variable "should_create_back_end_application" {
+  type        = "string"
+  description = "True if back-end application should be created, false otherwise"
+  default     = true
+}
+
+variable "should_create_front_end_application" {
+  type        = "string"
+  description = "True if front-end application should be created, false otherwise"
+  default     = true
+}
+
 /* Providers */
 variable "github_token" {
   type        = "string"
@@ -19,8 +31,18 @@ variable "github_organization" {
 
 variable "aws_region" {
   type        = "string"
-  description = "The default AWS region"
+  description = "The default AWS region used for deployment"
   default     = "eu-west-1"
+}
+
+variable "aws_availability_zones" {
+  type        = "list"
+  description = "The AWS Availability zones used for the creation of subnets"
+  default = [
+    "eu-west-1a",
+    "eu-west-1b",
+    "eu-west-1c"
+  ]
 }
 
 /* Membership */
@@ -55,6 +77,12 @@ variable "back_end_team_usernames" {
   ]
 }
 
+variable "back_end_application_name" {
+  type        = "string"
+  description = "The AWS elasticbeansalk application name for the back-end"
+  default     = "thyart-api"
+}
+
 /* Front-end */
 variable "front_end_repository" {
   type        = "string"
@@ -75,6 +103,12 @@ variable "front_end_team_usernames" {
     "tisserm",
     "jean-gblr"
   ]
+}
+
+variable "front_end_application_name" {
+  type        = "string"
+  description = "The AWS elasticbeansalk application name for the front-end"
+  default     = "thyart-web"
 }
 
 /* Ops */
