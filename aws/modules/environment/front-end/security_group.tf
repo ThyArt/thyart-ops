@@ -1,5 +1,4 @@
 resource "aws_security_group" "environment_security_group" {
-  count       = "${tonumber(replace(replace(var.should_be_created, false, 0), true, 1))}"
   vpc_id      = "${data.aws_vpc.vpc.id}"
   name        = "${var.application_name}-${var.stage}"
   description = "${var.application_name}-${var.stage} security group"

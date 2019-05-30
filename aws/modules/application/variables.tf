@@ -12,8 +12,3 @@ variable "aws_availability_zones" {
   type        = "list"
   description = "The AWS Availability zones used for the creation of subnets"
 }
-
-variable "should_be_created" {
-  type        = "string"
-  description = "True if value should be created, false otherwise"
-}

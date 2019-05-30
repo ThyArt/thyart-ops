@@ -25,8 +25,3 @@ variable "private_subnet_ids" {
   type        = "list"
   description = "The AWS private subnets which belong to the previous VPC"
 }
-
-variable "should_be_created" {
-  type        = "string"
-  description = "True if value should be created, false otherwise"
-}

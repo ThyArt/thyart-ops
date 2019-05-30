@@ -1,6 +1,5 @@
 resource "aws_iam_role" "ec2_role" {
-  count = "${tonumber(replace(replace(var.should_be_created, false, 0), true, 1))}"
-  name  = "${var.application_name}-${var.stage}-ec2-role"
+  name = "${var.application_name}-${var.stage}-ec2-role"
 
   assume_role_policy = <<EOF
 {
@@ -20,13 +19,11 @@ EOF
 }
 
 resource "aws_iam_instance_profile" "ec2_instance_profile" {
-  count = "${tonumber(replace(replace(var.should_be_created, false, 0), true, 1))}"
   name = "${var.application_name}-${var.stage}-ec2-instance-profile"
-  role = "${aws_iam_role.ec2_role.0.name}"
+  role = "${aws_iam_role.ec2_role.name}"
 }
 
 resource "aws_iam_role" "elasticbeanstalk_service_role" {
-  count = "${tonumber(replace(replace(var.should_be_created, false, 0), true, 1))}"
   name = "${var.application_name}-${var.stage}-elasticbeanstalk-service-role"
 
   assume_role_policy = <<EOF
@@ -47,9 +44,8 @@ EOF
 }
 
 resource "aws_iam_role_policy" "ec2_role_policy" {
-  count = "${tonumber(replace(replace(var.should_be_created, false, 0), true, 1))}"
-  role  = "${aws_iam_role.ec2_role.0.id}"
-  name  = "${var.application_name}-${var.stage}-ec2-role-policy"
+  role = "${aws_iam_role.ec2_role.id}"
+  name = "${var.application_name}-${var.stage}-ec2-role-policy"
 
   policy = <<EOF
 {
@@ -152,8 +148,7 @@ EOF
 }
 
 resource "aws_iam_role_policy" "elasticbeanstalk_role_policy" {
-  count = "${tonumber(replace(replace(var.should_be_created, false, 0), true, 1))}"
-  role = "${aws_iam_role.elasticbeanstalk_service_role.0.id}"
+  role = "${aws_iam_role.elasticbeanstalk_service_role.id}"
   name = "${var.application_name}-${var.stage}-elasticbeanstalk-role-policy"
 
   policy = <<EOF

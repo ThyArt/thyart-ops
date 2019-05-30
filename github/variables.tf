@@ -1,34 +1,3 @@
-/* acknoledgement */
-variable "organization" {
-  type        = "string"
-  description = "True if organization should be created, false otherwise"
-  default     = true
-}
-
-variable "back_end_application" {
-  type        = "string"
-  description = "True if back-end application should be created, false otherwise"
-  default     = false
-}
-
-variable "front_end_application" {
-  type        = "string"
-  description = "True if front-end application should be created, false otherwise"
-  default     = false
-}
-
-variable "front_end_staging" {
-  type        = "string"
-  description = "True if front-end staging should be created, false otherwise"
-  default     = false
-}
-
-variable "front_end_production" {
-  type        = "string"
-  description = "True if front-end production should be created, false otherwise"
-  default     = false
-}
-
 /* Providers */
 variable "github_token" {
   type        = "string"
@@ -45,33 +14,6 @@ variable "aws_region" {
   type        = "string"
   description = "The default AWS region used for deployment"
   default     = "eu-west-1"
-}
-
-variable "route53_zone_name" {
-  type        = "string"
-  description = "The AWS Route53 zone name used to access all environments"
-  default     = "thyart.fr"
-}
-
-variable "aws_availability_zones" {
-  type        = "list"
-  description = "The AWS Availability zones used for the creation of subnets"
-  default = [
-    "eu-west-1a",
-    "eu-west-1b",
-    "eu-west-1c"
-  ]
-}
-
-/* Membership */
-variable "members" {
-  type        = "list"
-  description = "The GitHub usernames associated to all members of the organization"
-  default = [
-    "Ajod",
-    "tisserm",
-    "jean-gblr"
-  ]
 }
 
 /* Back-end */
@@ -91,14 +33,21 @@ variable "back_end_team_usernames" {
   type        = "list"
   description = "The GitHub usernames associated to the back-end team"
   default = [
-    "Ajod"
+    "Ajod",
+    "CorvinAlex"
   ]
 }
 
-variable "back_end_application_name" {
-  type        = "string"
-  description = "The AWS elasticbeansalk application name for the back-end"
-  default     = "thyart-api"
+/* Membership */
+variable "members" {
+  type        = "list"
+  description = "The GitHub usernames associated to all members of the organization"
+  default = [
+    "Ajod",
+    "CorvinAlex",
+    "tisserm",
+    "jean-gblr"
+  ]
 }
 
 /* Front-end */
@@ -121,12 +70,6 @@ variable "front_end_team_usernames" {
     "tisserm",
     "jean-gblr"
   ]
-}
-
-variable "front_end_application_name" {
-  type        = "string"
-  description = "The AWS elasticbeansalk application name for the front-end"
-  default     = "thyart-web"
 }
 
 /* Ops */

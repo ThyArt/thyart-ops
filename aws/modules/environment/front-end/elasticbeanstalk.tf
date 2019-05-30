@@ -1,5 +1,4 @@
 resource "aws_elastic_beanstalk_environment" "environment" {
-  count               = "${tonumber(replace(replace(var.should_be_created, false, 0), true, 1))}"
   name                = "${var.application_name}-${var.stage}"
   application         = "${var.application_name}"
   solution_stack_name = "${data.aws_elastic_beanstalk_solution_stack.solution_stack.name}"
@@ -28,13 +27,13 @@ resource "aws_elastic_beanstalk_environment" "environment" {
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "IamInstanceProfile"
-    value     = "${aws_iam_instance_profile.ec2_instance_profile.0.name}"
+    value     = "${aws_iam_instance_profile.ec2_instance_profile.name}"
   }
 
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "SecurityGroups"
-    value     = "${aws_security_group.environment_security_group.0.id}"
+    value     = "${aws_security_group.environment_security_group.id}"
   }
 
   setting {
@@ -52,7 +51,7 @@ resource "aws_elastic_beanstalk_environment" "environment" {
   setting {
     namespace = "aws:elasticbeanstalk:environment"
     name      = "ServiceRole"
-    value     = "${aws_iam_role.elasticbeanstalk_service_role.0.name}"
+    value     = "${aws_iam_role.elasticbeanstalk_service_role.name}"
   }
 
   setting {
@@ -106,7 +105,7 @@ resource "aws_elastic_beanstalk_environment" "environment" {
   setting {
     namespace = "aws:elbv2:listener:443"
     name      = "SSLCertificateArns"
-    value     = "${aws_acm_certificate.acm_certificate.0.arn}"
+    value     = "${aws_acm_certificate.acm_certificate.arn}"
   }
 
   setting {

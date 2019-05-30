@@ -23,7 +23,6 @@ data "aws_route53_zone" "route53_zone" {
 }
 
 data "aws_lb_listener" "http_listener" {
-  count             = "${tonumber(replace(replace(var.should_be_created, false, 0), true, 1))}"
-  load_balancer_arn = "${aws_elastic_beanstalk_environment.environment.0.load_balancers.0}"
+  load_balancer_arn = "${aws_elastic_beanstalk_environment.environment.load_balancers.0}"
   port              = 80
 }

@@ -1,5 +1,5 @@
 resource "github_branch_protection" "protected_branches" {
-  count          = "${length(var.protected_branches) * tonumber(replace(replace(var.should_be_created, false, 0), true, 1))}"
+  count          = "${length(var.protected_branches)}"
   repository     = "${data.github_repository.repository.name}"
   branch         = "${element(var.protected_branches, count.index)}"
   enforce_admins = true
