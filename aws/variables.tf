@@ -21,6 +21,11 @@ variable "aws_availability_zones" {
   ]
 }
 
+variable "acme_registration_email" {
+  type        = "string"
+  description = "Email address used for ACME registration"
+}
+
 /* Back-end */
 variable "back_end_application_name" {
   type        = "string"

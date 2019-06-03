@@ -1,5 +1,5 @@
 resource "aws_security_group" "environment_security_group" {
-  vpc_id      = "${data.aws_vpc.vpc.id}"
+  vpc_id      = data.aws_vpc.vpc.id
   name        = "${var.application_name}-${var.stage}"
   description = "${var.application_name}-${var.stage} security group"
 
@@ -18,6 +18,6 @@ resource "aws_security_group" "environment_security_group" {
   }
 
   tags = {
-    Name = "${var.application_name}"
+    Name = var.application_name
   }
 }

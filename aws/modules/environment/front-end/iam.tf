@@ -20,7 +20,7 @@ EOF
 
 resource "aws_iam_instance_profile" "ec2_instance_profile" {
   name = "${var.application_name}-${var.stage}-ec2-instance-profile"
-  role = "${aws_iam_role.ec2_role.name}"
+  role = aws_iam_role.ec2_role.name
 }
 
 resource "aws_iam_role" "elasticbeanstalk_service_role" {
@@ -44,7 +44,7 @@ EOF
 }
 
 resource "aws_iam_role_policy" "ec2_role_policy" {
-  role = "${aws_iam_role.ec2_role.id}"
+  role = aws_iam_role.ec2_role.id
   name = "${var.application_name}-${var.stage}-ec2-role-policy"
 
   policy = <<EOF
@@ -148,7 +148,7 @@ EOF
 }
 
 resource "aws_iam_role_policy" "elasticbeanstalk_role_policy" {
-  role = "${aws_iam_role.elasticbeanstalk_service_role.id}"
+  role = aws_iam_role.elasticbeanstalk_service_role.id
   name = "${var.application_name}-${var.stage}-elasticbeanstalk-role-policy"
 
   policy = <<EOF

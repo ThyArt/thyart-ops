@@ -1,5 +1,5 @@
 resource "aws_default_security_group" "default" {
-  vpc_id = "${aws_vpc.vpc.id}"
+  vpc_id = aws_vpc.vpc.id
 
   ingress {
     protocol  = -1
@@ -16,6 +16,6 @@ resource "aws_default_security_group" "default" {
   }
 
   tags = {
-    Name = "${var.application_name}"
+    Name = var.application_name
   }
 }

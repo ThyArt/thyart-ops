@@ -46,7 +46,8 @@ variable "members" {
     "Ajod",
     "CorvinAlex",
     "tisserm",
-    "jean-gblr"
+    "jean-gblr",
+    "alambrinidis"
   ]
 }
 
@@ -89,6 +90,7 @@ variable "ops_team_usernames" {
   type        = "list"
   description = "The GitHub usernames associated to the ops team"
   default = [
-    "DeseineClement"
+    "DeseineClement",
+    "alambrinidis"
   ]
 }

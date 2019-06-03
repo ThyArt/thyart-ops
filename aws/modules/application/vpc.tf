@@ -6,7 +6,7 @@ resource "aws_vpc" "vpc" {
   enable_classiclink   = "false"
 
   tags = {
-    Name = "${var.application_name}"
+    Name = var.application_name
   }
 }
 
@@ -15,25 +15,25 @@ resource "aws_eip" "nat" {
 }
 
 resource "aws_nat_gateway" "nat_gateway" {
-  allocation_id = "${aws_eip.nat.id}"
-  subnet_id     = "${aws_subnet.subnets_public.0.id}"
+  allocation_id = aws_eip.nat.id
+  subnet_id     = aws_subnet.subnets_public[0].id
   depends_on    = ["aws_internet_gateway.gateway"]
 }
 
 resource "aws_internet_gateway" "gateway" {
-  vpc_id = "${aws_vpc.vpc.id}"
+  vpc_id = aws_vpc.vpc.id
 
   tags = {
-    Name = "${var.application_name}"
+    Name = var.application_name
   }
 }
 
 resource "aws_route_table" "route_table_public" {
-  vpc_id = "${aws_vpc.vpc.id}"
+  vpc_id = aws_vpc.vpc.id
 
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = "${aws_internet_gateway.gateway.id}"
+    gateway_id = aws_internet_gateway.gateway.id
   }
 
   tags = {
@@ -43,11 +43,11 @@ resource "aws_route_table" "route_table_public" {
 
 
 resource "aws_route_table" "route_table_private" {
-  vpc_id = "${aws_vpc.vpc.id}"
+  vpc_id = aws_vpc.vpc.id
 
   route {
     cidr_block     = "0.0.0.0/0"
-    nat_gateway_id = "${aws_nat_gateway.nat_gateway.id}"
+    nat_gateway_id = aws_nat_gateway.nat_gateway.id
   }
 
   tags = {
@@ -57,11 +57,11 @@ resource "aws_route_table" "route_table_private" {
 
 
 resource "aws_subnet" "subnets_public" {
-  count                   = "${length(data.aws_availability_zone.availability_zones)}"
-  vpc_id                  = "${aws_vpc.vpc.id}"
-  cidr_block              = "${cidrsubnet(aws_vpc.vpc.cidr_block, 4, count.index + 1)}"
+  count                   = length(data.aws_availability_zone.availability_zones)
+  vpc_id                  = aws_vpc.vpc.id
+  cidr_block              = cidrsubnet(aws_vpc.vpc.cidr_block, 4, count.index + 1)
   map_public_ip_on_launch = "true"
-  availability_zone       = "${element(data.aws_availability_zone.availability_zones, count.index).name}"
+  availability_zone       = data.aws_availability_zone.availability_zones[count.index].name
 
   tags = {
     Name = "${var.application_name}-public-${count.index}"
@@ -69,11 +69,11 @@ resource "aws_subnet" "subnets_public" {
 }
 
 resource "aws_subnet" "subnets_private" {
-  count                   = "${length(data.aws_availability_zone.availability_zones)}"
-  vpc_id                  = "${aws_vpc.vpc.id}"
-  cidr_block              = "${cidrsubnet(aws_vpc.vpc.cidr_block, 4, count.index + 1 + length(data.aws_availability_zone.availability_zones))}"
+  count                   = length(data.aws_availability_zone.availability_zones)
+  vpc_id                  = aws_vpc.vpc.id
+  cidr_block              = cidrsubnet(aws_vpc.vpc.cidr_block, 4, count.index + 1 + length(data.aws_availability_zone.availability_zones))
   map_public_ip_on_launch = "false"
-  availability_zone       = "${element(data.aws_availability_zone.availability_zones, count.index).name}"
+  availability_zone       = data.aws_availability_zone.availability_zones[count.index].name
 
   tags = {
     Name = "${var.application_name}-private-${count.index}"
@@ -81,13 +81,13 @@ resource "aws_subnet" "subnets_private" {
 }
 
 resource "aws_route_table_association" "route_table_associations_public" {
-  count          = "${length(data.aws_availability_zone.availability_zones)}"
-  subnet_id      = "${aws_subnet.subnets_public[count.index].id}"
-  route_table_id = "${aws_route_table.route_table_public.id}"
+  count          = length(data.aws_availability_zone.availability_zones)
+  subnet_id      = aws_subnet.subnets_public[count.index].id
+  route_table_id = aws_route_table.route_table_public.id
 }
 
 resource "aws_route_table_association" "route_table_associations_private" {
-  count          = "${length(data.aws_availability_zone.availability_zones)}"
-  subnet_id      = "${aws_subnet.subnets_private[count.index].id}"
-  route_table_id = "${aws_route_table.route_table_private.id}"
+  count          = length(data.aws_availability_zone.availability_zones)
+  subnet_id      = aws_subnet.subnets_private[count.index].id
+  route_table_id = aws_route_table.route_table_private.id
 }
