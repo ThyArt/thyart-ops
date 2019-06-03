@@ -26,3 +26,7 @@ data "aws_lb_listener" "http_listener" {
   load_balancer_arn = aws_elastic_beanstalk_environment.environment.load_balancers[0]
   port              = 80
 }
+
+data "aws_iam_server_certificate" "certificate" {
+  name = var.certificate_name
+}

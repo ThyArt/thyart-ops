@@ -37,7 +37,7 @@ resource "aws_elastic_beanstalk_environment" "environment" {
   setting {
     namespace = "aws:autoscaling:launchconfiguration"
     name      = "EC2KeyName"
-    value     = "${var.application_name}-${var.stage}"
+    value     = aws_key_pair.key_pair.key_name
   }
 
   setting {
@@ -94,7 +94,7 @@ resource "aws_elastic_beanstalk_environment" "environment" {
     value     = "Any 2"
   }
 
-  /* setting {
+  setting {
     namespace = "aws:elbv2:listener:443"
     name      = "Protocol"
     value     = "HTTPS"
@@ -103,8 +103,8 @@ resource "aws_elastic_beanstalk_environment" "environment" {
   setting {
     namespace = "aws:elbv2:listener:443"
     name      = "SSLCertificateArns"
-    value     = "${aws_acm_certificate.acm_certificate.arn}"
-  } */
+    value     = data.aws_iam_server_certificate.certificate.arn
+  }
 
   setting {
     namespace = "aws:elasticbeanstalk:environment"

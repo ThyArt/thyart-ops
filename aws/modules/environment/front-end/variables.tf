@@ -25,3 +25,13 @@ variable "private_subnet_ids" {
   type        = "list"
   description = "The AWS private subnets which belong to the previous VPC"
 }
+
+variable "certificate_name" {
+  type        = "string"
+  description = "The IAM certificate name used for https"
+}
+
+variable "environment_cname" {
+  type        = "string"
+  description = "The CNAME used for the environment"
+}
