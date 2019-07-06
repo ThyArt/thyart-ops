@@ -1,4 +1,2 @@
-\.idea/
-back-end/\.DS_Store
-
-\.DS_Store
+.terraform/
+.idea/
