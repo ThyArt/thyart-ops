@@ -12,7 +12,7 @@ resource "scaleway_server" "backend" {
   dynamic_ip_required = true
 }
 
-resource "scaleway_server" "bdd" {
+resource "scaleway_server" "mysql" {
   image               = data.scaleway_image.ubuntu-latest.id
   name                = "${var.stage}.thyart.mysql"
   type                = var.instance-type
