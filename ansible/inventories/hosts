@@ -1,9 +1,9 @@
 [backend]
-thyart.staging.backend ansible_ssh_host=163.172.133.98  ansible_user=root
-thyart.production.backend ansible_ssh_host=51.158.113.5  ansible_user=root
+thyart.staging.backend ansible_ssh_host=staging.api.thyart.fr ansible_user=root
+thyart.production.backend ansible_ssh_host=api.thyart.fr  ansible_user=root
 [frontend]
-thyart.staging.frontend ansible_ssh_host=51.158.116.45  ansible_user=root
-thyart.production.frontend ansible_ssh_host=51.15.247.114  ansible_user=root
+thyart.staging.frontend ansible_ssh_host=staging.thyart.fr  ansible_user=root
+thyart.production.frontend ansible_ssh_host=www.thyart.fr  ansible_user=root
 [mysql]
-thyart.staging.mysql ansible_ssh_host=51.158.124.154  ansible_user=root
-thyart.production.mysql ansible_ssh_host=51.15.247.195  ansible_user=root
+thyart.staging.mysql ansible_ssh_host=staging.db.thyart.fr  ansible_user=root
+thyart.production.mysql ansible_ssh_host=db.thyart.fr  ansible_user=root
