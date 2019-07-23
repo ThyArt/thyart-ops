@@ -1,0 +1,19 @@
+- name: create new databases
+  mysql_db:
+    name: "{{item.database}}"
+    state: "{{item.state}}"
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+  loop: "{{configuration_mysql}}"
+
+- name: add users from configuration
+  mysql_user:
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+    state: "{{item.state}}"
+    user: "{{item.user}}"
+    password: "{{item.password}}"
+    host: "%"
+    priv: "{{item.database}}.*:ALL"
+  loop: "{{configuration_mysql}}"
+

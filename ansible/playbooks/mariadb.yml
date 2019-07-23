@@ -1,0 +1,8 @@
+###
+
+- name: common
+  hosts:
+    - mysql
+  roles:
+    - debian/common
+    - debian/mariadb

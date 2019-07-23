@@ -1,0 +1,31 @@
+---
+# tasks file for roles/debian/common
+
+- name: update packet manager cache and packets
+  apt:
+    update_cache: yes
+    upgrade: full
+    cache_valid_time: 86400
+
+- name: install common packages
+  apt:
+    pkg:
+      - aptitude
+      - zsh
+      - git-core
+      - dnsutils
+      - htop
+      - iftop
+      - net-tools
+      - python-pip
+      - software-properties-common
+      - dirmngr
+
+- name: install oh-my-zsh
+  get_url:
+    url: https://github.com/robbyrussell/oh-my-zsh/raw/master/tools/install.sh
+    dest: /opt/install.sh
+    mode: '0744'
+  notify:
+    - install oh-my-zsh
+    - change root shell

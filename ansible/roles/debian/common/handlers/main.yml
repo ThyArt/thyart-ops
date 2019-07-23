@@ -1,5 +1,5 @@
 ---
-# handlers file for roles/ubuntu/common
+# handlers file for roles/debian/common
 
 - name: install oh-my-zsh
   shell: /opt/install.sh

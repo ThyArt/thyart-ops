@@ -1,0 +1,85 @@
+---
+# tasks file for roles/debian/mysql
+
+- name: add mariadb latest version apt-key
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: '0xF1656F24C74CD1D8'
+
+- name: add mariadb repository
+  apt_repository:
+    repo: 'deb [arch=amd64,i386,ppc64el] http://mirror.zol.co.zw/mariadb/repo/10.4/debian stretch main'
+    state: present
+    update_cache: yes
+
+- name: install mysql server
+  apt:
+    pkg:
+      - mariadb-server
+      - python-mysqldb
+  register: mysql_installed
+
+- name: Install PyMySQL
+  pip:
+    name: PyMySQL
+
+- name: check if mysql is configured
+  stat:
+    path: /var/lib/mysql/ibdata1
+  register: file_details
+
+- name: bootstrap
+  include: bootstrap.yml
+  when: file_details.stat.exists  == False
+
+- name: install .my.cnf with credentials
+  template:
+    src: my.cnf.j2
+    dest: /root/.my.cnf
+    mode: 0400
+
+- name: start mysql
+  systemd:
+    name: mysql
+    enabled: yes
+    state: started
+
+- name: update mysql root password for localhost
+  shell: >
+    mysql -u root -NBe
+    'ALTER USER root@localhost
+    IDENTIFIED BY "{{ mysql_root_password }}";
+    FLUSH PRIVILEGES;'
+  when: mysql_installed.changed == true
+
+- name: secure the root user for localhost
+  mysql_user:
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+    user: root
+    password: "{{ mysql_root_password }}"
+    priv: '*.*:ALL,GRANT'
+    host: "{{ item }}"
+  with_items:
+    - "localhost"
+    - "127.0.0.1"
+    - "::1"
+    - "%"
+
+- name: delete anonymous server user
+  mysql_user:
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+    user: ""
+    host_all: yes
+    state: absent
+
+- name: remove the test database
+  mysql_db:
+    login_user: root
+    login_password: "{{ mysql_root_password }}"
+    db: test
+    state: absent
+
+- include: configuration.yml
+  when: configuration_mysql is defined
