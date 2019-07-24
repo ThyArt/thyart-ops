@@ -1,4 +1,4 @@
-
+user                            www-data;
 worker_processes                1;
 
 events {
@@ -32,26 +32,26 @@ http {
         listen                  443 ssl default_server;
         listen                  [::]:443 ssl default_server;
 
-        root                    /var/www/html;
-        index                   index.php index.html index.htm index.nginx-debian.html;
+        root                    /var/www/thyart-api/public;
+        index                   index index.php
 
         server_name             localhost;
 
         location / {
-                try_files       $uri $uri/ =404;
+                try_files       $uri $uri/ /index.php;
         }
 
         location ~ \.php$ {
-                include snippets/fastcgi-php.conf;
-                fastcgi_pass unix:/run/php/php{{ php_version }}-fpm.sock;
+                include         snippets/fastcgi-php.conf;
+                fastcgi_pass    unix:/run/php/php{{ php_version }}-fpm.sock;
         }
 
         location ~ /\.ht {
-                deny all;
+                deny            all;
         }
 
         location ~ /.well-known {
-                allow all;
+                allow           all;
         }
     }
 
