@@ -1,0 +1,32 @@
+---
+# tasks file for roles/debian/php
+
+- name: install common packages
+  apt:
+    pkg:
+      - ca-certificates
+      - apt-transport-https
+
+- name: add php version apt-key
+  apt_key:
+    url: https://packages.sury.org/php/apt.gpg
+
+- name: add php repository
+  apt_repository:
+    repo: 'deb https://packages.sury.org/php/ stretch main'
+    state: present
+    update_cache: yes
+
+- name: install php
+  apt:
+    pkg:
+      - php7.2
+      - php7.2-fpm
+      - php7.2-cli
+      - php7.2-common
+      - php7.2-opcache
+      - php7.2-curl
+      - php7.2-mbstring
+      - php7.2-mysql
+      - php7.2-zip
+      - php7.2-xml

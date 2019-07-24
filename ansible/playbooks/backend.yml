@@ -1,0 +1,6 @@
+- name: backend
+  hosts:
+    - backend
+  roles:
+    - debian/common
+    - debian/php

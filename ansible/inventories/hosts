@@ -1,9 +1,0 @@
-[backend]
-thyart.staging.backend ansible_ssh_host=staging.api.thyart.fr ansible_user=root
-thyart.production.backend ansible_ssh_host=api.thyart.fr  ansible_user=root
-[frontend]
-thyart.staging.frontend ansible_ssh_host=staging.thyart.fr  ansible_user=root
-thyart.production.frontend ansible_ssh_host=www.thyart.fr  ansible_user=root
-[mysql]
-thyart.staging.mysql ansible_ssh_host=staging.db.thyart.fr  ansible_user=root
-thyart.production.mysql ansible_ssh_host=db.thyart.fr  ansible_user=root

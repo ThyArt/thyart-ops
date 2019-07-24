@@ -1,4 +1,0 @@
-mysql_root_password: shie4uphae5Oom7Ahxoh3aa7Quohcaiz
-configuration_mysql:
-    - { user: thyart_staging, password: el6cujaphui0Saixajeiyae3phig6Lah, database: thyart_staging, state: present}
-    - { user: thyart_testing, password: aithahlo9vei3shohRoofoh8ahoh4aex, database: thyart_testing, state: present}

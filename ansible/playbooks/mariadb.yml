@@ -2,7 +2,7 @@
 
 - name: common
   hosts:
-    - mysql
+    - mariadb
   roles:
     - debian/common
     - debian/mariadb

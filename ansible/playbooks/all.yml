@@ -6,8 +6,14 @@
   roles:
     - debian/common
 
-- name: mysql
+- name: mariadb
   hosts:
-    - mysql
+    - mariadb
   roles:
     - debian/mariadb
+
+- name: backend
+  hosts:
+    - backend
+  roles:
+    - debian/php
