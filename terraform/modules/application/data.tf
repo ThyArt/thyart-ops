@@ -1,6 +1,6 @@
-data "scaleway_image" "ubuntu-latest" {
+data "scaleway_image" "debian-latest" {
   architecture = "x86_64"
-  name         = "Ubuntu Bionic"
+  name         = "Debian Stretch"
   most_recent  = true
 }
 
