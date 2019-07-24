@@ -30,4 +30,5 @@
       - php{{ php_version }}-mysql
       - php{{ php_version }}-zip
       - php{{ php_version }}-xml
+      - php{{ php_version }}-gd
       - composer
