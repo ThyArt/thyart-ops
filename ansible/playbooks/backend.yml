@@ -4,3 +4,4 @@
   roles:
     - debian/common
     - debian/php
+    - debian/nginx

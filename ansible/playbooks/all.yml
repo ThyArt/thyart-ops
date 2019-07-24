@@ -17,3 +17,4 @@
     - backend
   roles:
     - debian/php
+    - debian/nginx

@@ -1,0 +1,3 @@
+certname: api.thyart.fr
+nginx_config_file: server.backend.conf
+php_version: 7.2

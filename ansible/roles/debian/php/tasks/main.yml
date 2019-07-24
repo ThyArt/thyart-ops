@@ -1,7 +1,7 @@
 ---
 # tasks file for roles/debian/php
 
-- name: install common packages
+- name: install mandatory packages
   apt:
     pkg:
       - ca-certificates
@@ -20,13 +20,14 @@
 - name: install php
   apt:
     pkg:
-      - php7.2
-      - php7.2-fpm
-      - php7.2-cli
-      - php7.2-common
-      - php7.2-opcache
-      - php7.2-curl
-      - php7.2-mbstring
-      - php7.2-mysql
-      - php7.2-zip
-      - php7.2-xml
+      - php{{ php_version }}
+      - php{{ php_version }}-fpm
+      - php{{ php_version }}-cli
+      - php{{ php_version }}-common
+      - php{{ php_version }}-opcache
+      - php{{ php_version }}-curl
+      - php{{ php_version }}-mbstring
+      - php{{ php_version }}-mysql
+      - php{{ php_version }}-zip
+      - php{{ php_version }}-xml
+      - composer

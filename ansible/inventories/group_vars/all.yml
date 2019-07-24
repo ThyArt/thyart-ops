@@ -1,1 +1,5 @@
 ansible_ssh_private_key_file: ~/.ssh/eip_scaleway_rsa
+aws_access_key: AKIAVFJJKPQ2G6EUFMXY
+aws_secret_key: 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
+aws_s3_bucket: thyart-ops
+aws_region: eu-west-1

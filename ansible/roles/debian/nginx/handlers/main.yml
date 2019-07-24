@@ -1,0 +1,14 @@
+---
+# handlers file for roles/debian/nginx
+
+- name: restart nginx
+  systemd:
+    name: nginx
+    enabled: yes
+    state: restarted
+
+- name: reload nginx
+  systemd:
+    name: nginx
+    enabled: yes
+    state: reloaded

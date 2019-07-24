@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
     bucket = "thyart-ops"
-    key    = "aws"
+    key    = "terraform/thyart-ops"
     region = "eu-west-1"
   }
 }
