@@ -1,3 +1,8 @@
+resource "aws_s3_bucket" "picture_bucket" {
+  bucket = "${var.stage}-thyart-pictures"
+  acl    = "public-read"
+}
+
 resource "scaleway_server" "frontend" {
   image               = data.scaleway_image.debian-latest.id
   name                = "${var.stage}.thyart.frontend"
