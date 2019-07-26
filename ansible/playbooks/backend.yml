@@ -2,6 +2,7 @@
   hosts:
     - backend
   roles:
-    - debian/common
-    - debian/php
-    - debian/nginx
+#    - debian/common
+#    - debian/php
+#    - debian/nginx
+    - debian/environment

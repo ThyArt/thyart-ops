@@ -18,3 +18,4 @@
   roles:
     - debian/php
     - debian/nginx
+    - debian/environment

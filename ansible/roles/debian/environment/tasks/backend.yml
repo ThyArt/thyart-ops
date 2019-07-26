@@ -1,0 +1,17 @@
+- template:
+    src: .env.j2
+    dest: "/tmp/.env{{ item.file_extension}}"
+  loop: "{{configuration_environment}}"
+  register: env_files
+
+- aws_s3:
+    aws_access_key: "{{ aws_access_key }}"
+    aws_secret_key: "{{ aws_secret_key }}"
+    region: "{{ aws_region }}"
+    bucket: "{{ aws_s3_bucket }}"
+    object: "{{ s3_environment_path}}/.env{{ item.item.file_extension}}"
+    src: "{{ item.dest }}"
+    mode: put
+    encrypt: false
+    overwrite: different
+  loop: "{{ env_files.results }}"
