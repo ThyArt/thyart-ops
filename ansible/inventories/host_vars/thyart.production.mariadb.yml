@@ -1,6 +1,0 @@
-mysql_root_password: aiDao1thio3Ia5joh0weijaeXee4oph9
-configuration_mysql:
-    - user: thyart
-      password: enuceineiLu8lohgakoowaech5fooj4a
-      database: thyart
-      state: present
