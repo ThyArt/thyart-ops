@@ -1,4 +1,4 @@
-s3_environment_path: env/frontend/staging
+s3_environment_path: env/frontend/production
 
 configuration_environment:
   - file_extension:
