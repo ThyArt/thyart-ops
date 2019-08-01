@@ -2,7 +2,7 @@ s3_environment_path: env/frontend/staging
 
 configuration_environment:
   - file_extension:
-    react_app_api_endpoint: https://staging.api.thyart.fr
+    react_app_api_endpoint: https://staging.api.thyart.fr/
     react_app_api_client_secret: !vault |
       $ANSIBLE_VAULT;1.1;AES256
       63396338646631343739323562386366306464383130363936666164623864326135353665616239
