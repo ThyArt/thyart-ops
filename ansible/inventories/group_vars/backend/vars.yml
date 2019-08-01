@@ -1,3 +1,6 @@
 certname: api.thyart.fr
-nginx_config_file: server.backend.conf
+nginx_config_file_template: server.backend.conf.j2
+nginx_server_dir: /var/www/thyart-api
+dotenv_file_template: .env.backend.j2
+environment_file_template: environment.backend.j2
 php_version: 7.2

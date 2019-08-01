@@ -19,3 +19,10 @@
     - debian/php
     - debian/nginx
     - debian/environment
+
+- name: frontend
+  hosts:
+    - frontend
+  roles:
+    - debian/nginx
+    - debian/environment

@@ -1,4 +1,4 @@
-s3_environment_path: env/api/production
+s3_environment_path: env/backend/production
 passport_client_secret: !vault |
   $ANSIBLE_VAULT;1.1;AES256
   62353862306232303233363632326364383465653461396564363638653361383432326364393730

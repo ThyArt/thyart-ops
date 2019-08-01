@@ -32,18 +32,13 @@ http {
         listen                  443 ssl default_server;
         listen                  [::]:443 ssl default_server;
 
-        root                    {{ nginx_server_dir}}/public;
-        index                   index index.php
+        root                    {{ nginx_server_dir }}/;
+        index                   index index.html
 
         server_name             localhost;
 
         location / {
-                try_files       $uri $uri/ /index.php?$args;
-        }
-
-        location ~ \.php$ {
-                include         snippets/fastcgi-php.conf;
-                fastcgi_pass    unix:/run/php/php{{ php_version }}-fpm.sock;
+                try_files       $uri $uri/ /index.html =404;
         }
 
         location ~ /\.ht {

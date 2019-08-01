@@ -1,7 +1,0 @@
-- name: generate environment variable file
-  template:
-    src: environment.backend.j2
-    dest: /etc/environment
-
-- include: backend_configuration.yml
-  when: configuration_environment is defined

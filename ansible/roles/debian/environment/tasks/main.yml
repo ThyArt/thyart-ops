@@ -1,5 +1,10 @@
 ---
 # tasks file for roles/debian/environment
+- name: generate environment variable file
+  template:
+    src: "{{ environment_file_template }}"
+    dest: /etc/environment
+  when: environment_file_template is defined
 
-- include: backend.yml
-  when: "'backend' in group_names"
+- include: configuration.yml
+  when: configuration_environment is defined and dotenv_file_template is defined

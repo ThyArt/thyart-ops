@@ -1,8 +1,7 @@
-- name: backend
+- name: frontend
   hosts:
-    - backend
+    - frontend
   roles:
     - debian/common
-    - debian/php
     - debian/nginx
     - debian/environment

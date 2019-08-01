@@ -1,6 +1,6 @@
 - name: generate .env files
   template:
-    src: .env.j2
+    src: "{{ dotenv_file_template }}"
     dest: "/tmp/.env{{ item.file_extension}}"
   loop: "{{configuration_environment}}"
   register: env_files
