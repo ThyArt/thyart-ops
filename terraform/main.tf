@@ -16,6 +16,12 @@ module "production_app" {
   mysql_cname_prefix    = "db"
 }
 
+module "documentation" {
+  source        = "./modules/documentation"
+  instance-type = "DEV1-S"
+  cname_prefix  = "doc.api"
+}
+
 resource "github_branch_protection" "protection_master" {
   count      = length(data.github_repository.repositories)
   branch     = "master"

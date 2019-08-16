@@ -26,3 +26,9 @@
   roles:
     - debian/nginx
     - debian/environment
+
+- name: documentation
+  hosts:
+    - documentation
+  roles:
+    - debian/nginx

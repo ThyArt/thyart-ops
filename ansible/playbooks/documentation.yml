@@ -1,0 +1,6 @@
+- name: documentation
+  hosts:
+    - documentation
+  roles:
+    - debian/common
+    - debian/nginx
