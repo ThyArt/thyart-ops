@@ -20,6 +20,7 @@
 - name: install php
   apt:
     pkg:
+      - imagemagick
       - php{{ php_version }}
       - php{{ php_version }}-fpm
       - php{{ php_version }}-cli
@@ -31,4 +32,5 @@
       - php{{ php_version }}-zip
       - php{{ php_version }}-xml
       - php{{ php_version }}-gd
+      - php{{ php_version }}-imagick
       - composer
