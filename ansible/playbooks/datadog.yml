@@ -1,0 +1,16 @@
+- hosts: servers
+  roles:
+    - { role: Datadog.datadog, become: yes }  # On Ansible < 1.9, use "sudo: yes" instead of "become: yes"
+  vars:
+    datadog_api_key: "8a31dffb6b1b2d0a192a847aceab6172"
+    datadog_checks:
+      process:
+        init_config:
+        instances:
+          - name: ssh
+            search_string: ['ssh', 'sshd' ]
+          - name: syslog
+            search_string: ['rsyslog' ]
+            cpu_check_interval: 0.2
+            exact_match: true
+            ignore_denied_access: true
