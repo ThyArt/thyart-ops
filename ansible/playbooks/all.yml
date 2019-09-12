@@ -5,6 +5,7 @@
     - all
   roles:
     - debian/common
+    - debian/datadog.datadog
 
 - name: mariadb
   hosts:
@@ -32,9 +33,3 @@
     - documentation
   roles:
     - debian/nginx
-
-- name: datadog
-  hosts:
-    - servers
-  roles:
-    - { role: Datadog.datadog, become: yes, datadog_api_key: "8a31dffb6b1b2d0a192a847aceab6172" }
