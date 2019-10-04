@@ -86,3 +86,8 @@
     name: nginx
     state: started
     enabled: yes
+
+- name: enable datadog monitoring
+  template:
+    src: "../templates/server.status.conf.j2"
+    dest: /etc/nginx/conf.d/status.conf
