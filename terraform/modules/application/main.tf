@@ -1,6 +1,7 @@
 resource "aws_s3_bucket" "picture_bucket" {
-  bucket = "${var.stage}-thyart-pictures"
-  acl    = "public-read"
+  bucket        = "${var.stage}-thyart-pictures"
+  acl           = "public-read"
+  force_destroy = true
 }
 
 resource "scaleway_server" "frontend" {
